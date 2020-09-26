@@ -4,9 +4,9 @@
   "scripts": {
     "dev": "webpack-dev-server --config webpack/webpack.config.js --env.env dev --open",
     "build": "webpack --config webpack/webpack.config.js --env.env prod",
+    "serve-prod-build": "npx serve -l 8080 -C -d build",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "serve-prod-build": "npx serve -l 8080 -C -d build"
+    "deploy": "gh-pages -d build"
   },
   "author": "Nikita Striuk",
   "license": "ISC",
@@ -15,7 +15,6 @@
     "@babel/runtime": "7.11.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-router-dom": "5.2.0",
     "styled-components": "5.2.0"
   },
   "devDependencies": {
