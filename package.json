@@ -5,7 +5,8 @@
     "dev": "webpack-dev-server --config webpack/webpack.config.js --env.env dev --open",
     "build": "webpack --config webpack/webpack.config.js --env.env prod",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "serve-prod-build": "npx serve -l 8080 -C -d build"
   },
   "author": "Nikita Striuk",
   "license": "ISC",

@@ -28,6 +28,7 @@ export function Main() {
     <StyledMain>
       <Playlist
         name={playlist.name}
+        totalSongs={playlist.totalSongs}
         songs={songs}
         areSongsLoading={areSongsLoading}
         isLoading={isPlaylistLoading}

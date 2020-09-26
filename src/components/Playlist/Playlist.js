@@ -11,7 +11,13 @@ import {
   StyledPlaylistName,
 } from './StyledPlaylist';
 
-export function Playlist({ name, songs, isLoading, areSongsLoading }) {
+export function Playlist({
+  name,
+  totalSongs,
+  songs,
+  isLoading,
+  areSongsLoading,
+}) {
   return (
     <StyledPlaylist>
       {isLoading ? (
@@ -20,7 +26,7 @@ export function Playlist({ name, songs, isLoading, areSongsLoading }) {
         <React.Fragment>
           <StyledPlaylistName>{name}</StyledPlaylistName>
           <StyledPlaylistDescription>
-            {songs.length} songs
+            {totalSongs} songs
           </StyledPlaylistDescription>
           <SongList songs={songs} isLoading={areSongsLoading} />
         </React.Fragment>
@@ -31,6 +37,7 @@ export function Playlist({ name, songs, isLoading, areSongsLoading }) {
 
 Playlist.propTypes = {
   name: PropTypes.string,
+  totalSongs: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,
   areSongsLoading: PropTypes.bool.isRequired,
   songs: PropTypes.arrayOf(songShape).isRequired,
@@ -38,4 +45,5 @@ Playlist.propTypes = {
 
 Playlist.defaultProps = {
   name: '',
+  totalSongs: '',
 };
