@@ -8,11 +8,16 @@ const SONGS = [
   { name: 'Test song name 5', artist: 'Test song artist 5', duration: '3.40' },
 ];
 
+const PLAYLIST = {
+  totalSongs: SONGS.length,
+  name: 'Test playlist',
+};
+
 export class MainApi {
   static getPlaylist() {
     return new Promise((resolve) =>
       setTimeout(() => {
-        resolve({ totalSongs: SONGS.length, name: 'Test playlist' });
+        resolve({ PLAYLIST });
       }, REQUEST_TIMEOUT),
     );
   }

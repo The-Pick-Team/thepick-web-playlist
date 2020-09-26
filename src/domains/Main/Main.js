@@ -38,7 +38,7 @@ export function Main() {
 
   async function getPlaylist() {
     const response = await MainApi.getPlaylist();
-    setPlaylist({ name: response.name, totalSongs: response.totalSongs });
+    setPlaylist(response);
     setIsPlaylistLoading(false);
   }
 

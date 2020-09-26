@@ -2,7 +2,7 @@
 
 ## Tech Stack
 
-- React / React Router / Styled-components
+- React / Styled-components
 - EsLint / StyleLint / Prettier
 - Babel / Webpack
 - Husky / Lint-staged
