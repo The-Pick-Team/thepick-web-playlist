@@ -1,15 +1,17 @@
 {
-  "name": "react-starter",
+  "name": "thepick-web-playlist",
   "version": "1.0.0",
   "scripts": {
     "dev": "webpack-dev-server --config webpack/webpack.config.js --env.env dev --open",
-    "build": "webpack --config webpack/webpack.config.js --env.env prod"
+    "build": "webpack --config webpack/webpack.config.js --env.env prod",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "Nikita Striuk",
   "license": "ISC",
+  "homepage": "https://the-pick-team.github.io/thepick-web-playlist",
   "dependencies": {
     "@babel/runtime": "7.11.2",
-    "lodash.get": "4.4.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-router-dom": "5.2.0",
