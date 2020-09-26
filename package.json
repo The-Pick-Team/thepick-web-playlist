@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "webpack-dev-server --config webpack/webpack.config.js --env.env dev --open",
-    "build": "webpack --config webpack/webpack.config.js --env.env prod",
-    "cypress": "cypress open"
+    "build": "webpack --config webpack/webpack.config.js --env.env prod"
   },
   "author": "Nikita Striuk",
   "license": "ISC",
