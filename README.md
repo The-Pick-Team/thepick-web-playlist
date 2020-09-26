@@ -15,3 +15,4 @@ After installing modules, you're ready to start the project!
 | -------------- | -------------------------------------------------------------- |
 | `dev`          | Serves your app at `localhost:8080` with hot reloading enabled |
 | `build`        | Builds the application to ./dist                               |
+| `deploy`       | Deploys the application to gh-pages                            |
