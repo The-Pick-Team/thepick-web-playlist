@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
-import { MainApi } from 'domains/Main/mainApi';
+import { HomeApi } from 'Home/homeApi';
+import { HomeHeader } from 'Home/HomeHeader/HomeHeader';
 import { Playlist } from 'components/Playlist/Playlist';
 
-import { StyledMain } from './StyledMain';
+import { StyledHome } from './StyledHome';
 
 const CHUNK_SIZE = 1;
 
-export function Main() {
+export function Home() {
   const [playlist, setPlaylist] = useState({});
   const [isPlaylistLoading, setIsPlaylistLoading] = useState(true);
 
@@ -25,7 +26,8 @@ export function Main() {
   }, [songs.length, playlist.totalSongs]);
 
   return (
-    <StyledMain>
+    <StyledHome>
+      <HomeHeader />
       <Playlist
         name={playlist.name}
         totalSongs={playlist.totalSongs}
@@ -33,18 +35,19 @@ export function Main() {
         areSongsLoading={areSongsLoading}
         isLoading={isPlaylistLoading}
       />
-    </StyledMain>
+    </StyledHome>
   );
 
   async function getPlaylist() {
-    const response = await MainApi.getPlaylist();
+    const response = await HomeApi.getPlaylist();
+    console.log(response);
     setPlaylist(response);
     setIsPlaylistLoading(false);
   }
 
   async function getPlaylistSongs() {
     setAreSongsLoading(true);
-    const response = await MainApi.getPlaylistSongs({
+    const response = await HomeApi.getPlaylistSongs({
       offset: songs.length,
       limit: CHUNK_SIZE,
     });

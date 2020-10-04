@@ -13,11 +13,11 @@ const PLAYLIST = {
   name: 'Test playlist',
 };
 
-export class MainApi {
+export class HomeApi {
   static getPlaylist() {
     return new Promise((resolve) =>
       setTimeout(() => {
-        resolve({ PLAYLIST });
+        resolve({ ...PLAYLIST });
       }, REQUEST_TIMEOUT),
     );
   }

@@ -19,8 +19,8 @@
         "alias": {
           "components": "./src/components",
           "app": "./src/app",
-          "domains": "./src/domains",
-          "utils": "./src/utils"
+          "utils": "./src/utils",
+          "Home": "./src/Home"
         }
       }
     ]
