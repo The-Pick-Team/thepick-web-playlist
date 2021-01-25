@@ -9,7 +9,9 @@ import { StyledHome } from './StyledHome';
 const CHUNK_SIZE = 1;
 
 export function Home() {
-  const playlistId = window.location.pathname.replace('/', '');
+  const urlParams = new URLSearchParams(window.location.search);
+  const playlistId = urlParams.get('playlistId');
+
   const [playlist, setPlaylist] = useState({});
   const [isPlaylistLoading, setIsPlaylistLoading] = useState(true);
 
