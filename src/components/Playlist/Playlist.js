@@ -17,6 +17,7 @@ export function Playlist({
   songs,
   isLoading,
   areSongsLoading,
+  activeService,
 }) {
   return (
     <StyledPlaylist>
@@ -28,7 +29,11 @@ export function Playlist({
           <StyledPlaylistDescription>
             {totalSongs} songs
           </StyledPlaylistDescription>
-          <SongList songs={songs} isLoading={areSongsLoading} />
+          <SongList
+            songs={songs}
+            isLoading={areSongsLoading}
+            activeService={activeService}
+          />
         </React.Fragment>
       )}
     </StyledPlaylist>
@@ -37,6 +42,7 @@ export function Playlist({
 
 Playlist.propTypes = {
   name: PropTypes.string,
+  activeService: PropTypes.string.isRequired,
   totalSongs: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,
   areSongsLoading: PropTypes.bool.isRequired,

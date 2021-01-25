@@ -4,6 +4,7 @@ import { styledMap } from 'utils/styledMap';
 
 export const BUTTON_VARIANTS = {
   PRIMARY: 'primary',
+  PRIMARY_ACTIVE: 'primary_active',
   SECONDARY: 'secondary',
 };
 const VARIANT_PROP_NAME = 'variant';
@@ -11,24 +12,28 @@ const VARIANT_PROP_NAME = 'variant';
 const backgroundColor = ({ theme }) =>
   styledMap(VARIANT_PROP_NAME, {
     [BUTTON_VARIANTS.PRIMARY]: theme.palette.primary.dark,
+    [BUTTON_VARIANTS.PRIMARY_ACTIVE]: theme.palette.primary.light,
     [BUTTON_VARIANTS.SECONDARY]: theme.palette.secondary.dark,
   });
 
 const textColor = ({ theme }) =>
   styledMap(VARIANT_PROP_NAME, {
     [BUTTON_VARIANTS.PRIMARY]: theme.palette.common.white,
+    [BUTTON_VARIANTS.PRIMARY_ACTIVE]: theme.palette.common.black,
     [BUTTON_VARIANTS.SECONDARY]: theme.palette.common.black,
   });
 
 const borderColor = ({ theme }) =>
   styledMap(VARIANT_PROP_NAME, {
     [BUTTON_VARIANTS.PRIMARY]: theme.palette.common.white,
+    [BUTTON_VARIANTS.PRIMARY_ACTIVE]: theme.palette.common.dark,
     [BUTTON_VARIANTS.SECONDARY]: theme.palette.common.black,
   });
 
 const hoverBackgroundColor = ({ theme }) =>
   styledMap(VARIANT_PROP_NAME, {
     [BUTTON_VARIANTS.PRIMARY]: theme.palette.primary.main,
+    [BUTTON_VARIANTS.PRIMARY_ACTIVE]: theme.palette.primary.main,
     [BUTTON_VARIANTS.SECONDARY]: theme.palette.secondary.main,
   });
 

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import {
   StyledSong,
@@ -13,14 +13,21 @@ export const songShape = PropTypes.shape({
   duration: PropTypes.string.isRequired,
 });
 
-export function Song({ song, index }) {
+export function Song({ song, index, activeService }) {
   return (
-    <StyledSong>
+    <StyledSong
+      onClick={() => {
+        if (song && song.links && song.links.length > 0 && activeService) {
+          const res = song.links.find((o) => o.platform.name === activeService);
+          window.open(res.url, '_blank');
+        }
+      }}
+    >
       {index + 1}
       <StyledSongMeta>
-        <p>{song.name}</p>
+        <p>{song.title}</p>
         <StyledSongDescription>
-          {song.artist} * {song.duration}
+          {song.artist_name} * {song.duration}
         </StyledSongDescription>
       </StyledSongMeta>
     </StyledSong>
@@ -30,4 +37,5 @@ export function Song({ song, index }) {
 Song.propTypes = {
   index: PropTypes.number.isRequired,
   song: songShape.isRequired,
+  activeService: PropTypes.string.isRequired,
 };

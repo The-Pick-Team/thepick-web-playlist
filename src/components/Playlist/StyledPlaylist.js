@@ -3,6 +3,8 @@ import styled from 'styled-components';
 export const StyledPlaylist = styled.div`
   display: flex;
   flex-direction: column;
+  max-width: 400px;
+  width: 100%;
 `;
 
 export const StyledPlaylistName = styled.p`
