@@ -4,9 +4,9 @@ import styled from 'styled-components';
 export const StyledPlaylist = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: сфдс(100% - 40px);
   max-width: 660px;
-  padding: 0 20px !important;
+  padding: 0 20px;
 `;
 
 export const StyledPlaylistName = styled.p`
