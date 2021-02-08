@@ -5,6 +5,7 @@ import {
   StyledSong,
   StyledSongDescription,
   StyledSongMeta,
+  StyledSongTitle,
 } from './StyledSong';
 
 export const songShape = PropTypes.shape({
@@ -25,7 +26,7 @@ export function Song({ song, index, activeService }) {
     >
       {index + 1}
       <StyledSongMeta>
-        <p>{song.title}</p>
+        <StyledSongTitle>{song.title}</StyledSongTitle>
         <StyledSongDescription>
           {song.artist_name} * {song.duration}
         </StyledSongDescription>

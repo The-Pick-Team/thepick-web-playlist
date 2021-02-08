@@ -22,4 +22,15 @@ export const StyledSongMeta = styled.div`
 export const StyledSongDescription = styled.p`
   margin-top: ${({ theme }) => theme.spacing(3)};
   color: ${({ theme }) => theme.palette.primary.light};
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 18px;
+  letter-spacing: -0.165px;
+`;
+
+export const StyledSongTitle = styled.span`
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 18px;
+  color: ${({ theme }) => theme.palette.common.white};
 `;

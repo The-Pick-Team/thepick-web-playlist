@@ -25,11 +25,7 @@ export function Home() {
   }, []);
 
   useEffect(() => {
-    if (
-      // songs.length &&
-      playlist.total_songs &&
-      songs.length < playlist.total_songs
-    ) {
+    if (playlist.total_songs && songs.length < playlist.total_songs) {
       getPlaylistSongs();
     }
   }, [songs.length, playlist.total_songs]);
@@ -39,7 +35,7 @@ export function Home() {
   };
   return (
     <StyledHome>
-      <HomeHeader onTabChange={handleTabChange} activeService={activeService} />
+      <HomeHeader />
       <Playlist
         name={playlist.title}
         totalSongs={playlist.total_songs}
@@ -47,6 +43,7 @@ export function Home() {
         areSongsLoading={areSongsLoading}
         isLoading={isPlaylistLoading}
         activeService={activeService}
+        onTabChange={handleTabChange}
       />
     </StyledHome>
   );

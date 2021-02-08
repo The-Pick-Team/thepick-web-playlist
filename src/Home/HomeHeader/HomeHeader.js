@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
 import { BUTTON_VARIANTS, Button } from 'components/Button/Button';
+import logo from 'assets/img/thepickbot.svg';
 
-import { StyledHomeHeader } from './StyledHomeHeader';
+import { StyledHomeHeader, StyledLogo } from './StyledHomeHeader';
 
 export const SERVICES = [
   {
@@ -27,21 +28,7 @@ export function HomeHeader({ onTabChange, activeService }) {
   const active = useState(0);
   return (
     <StyledHomeHeader>
-      {SERVICES.map((item, index) => (
-        <Button
-          key={index}
-          variant={
-            item.id === activeService
-              ? BUTTON_VARIANTS.PRIMARY_ACTIVE
-              : BUTTON_VARIANTS.PRIMARY
-          }
-          onClick={() => {
-            onTabChange(item);
-          }}
-        >
-          {item.name}
-        </Button>
-      ))}
+      <StyledLogo src={logo} alt="" />
     </StyledHomeHeader>
   );
 }

@@ -3,6 +3,7 @@ function createLightPalette() {
     common: {
       black: '#000',
       white: '#fff',
+      grey: '#2e2e2e',
     },
     primary: {
       light: '#515154',
@@ -12,7 +13,7 @@ function createLightPalette() {
     secondary: {
       light: '#fafafa',
       main: '#eee',
-      dark: '#e0e0e0',
+      dark: '#171717',
     },
   };
 }
