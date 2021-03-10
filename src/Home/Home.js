@@ -1,12 +1,30 @@
 import React, { useEffect, useState } from 'react';
 
 import { HomeApi } from 'Home/homeApi';
-import { HomeHeader, SERVICES } from 'Home/HomeHeader/HomeHeader';
 import { Playlist } from 'components/Playlist/Playlist';
 
 import { StyledHome } from './StyledHome';
 
 const CHUNK_SIZE = 1;
+
+export const SERVICES = [
+  {
+    name: 'Youtube',
+    id: 'youtube',
+  },
+  {
+    name: 'Spotify',
+    id: 'spotify',
+  },
+  {
+    name: 'Apple Music',
+    id: 'appleMusic',
+  },
+  {
+    name: 'Deezer',
+    id: 'deezer',
+  },
+];
 
 export function Home() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -35,7 +53,6 @@ export function Home() {
   };
   return (
     <StyledHome>
-      <HomeHeader />
       <Playlist
         name={playlist.title}
         totalSongs={playlist.total_songs}

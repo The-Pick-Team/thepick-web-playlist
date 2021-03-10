@@ -49,6 +49,7 @@
     "prettier": "2.1.2",
     "prop-types": "15.7.2",
     "react-copy-to-clipboard": "^5.0.3",
+    "react-router-dom": "^5.2.0",
     "style-loader": "1.2.1",
     "styled-reset": "4.2.3",
     "stylelint": "13.7.2",
