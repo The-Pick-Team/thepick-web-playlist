@@ -6,9 +6,10 @@ export class NewPlaylistApi {
     ).then((response) => response.json());
   }
 
-  static getPlaylistSongs({ id, offset, limit }) {
+  static getSong({ url }) {
+    const encodedUrl = encodeURIComponent(url);
     return fetch(
-      `https://thepick.saport.io/api/playlists/${id}/psongs?offset=${offset}&limit=${limit}`,
+      `http://35.190.112.131/songs?songUrl=${encodedUrl}`,
     ).then((response) => response.json());
   }
 }

@@ -67,6 +67,7 @@ export function Home() {
 
   async function getPlaylist() {
     const response = await HomeApi.getPlaylist({ playlistId });
+    console.log('playlist: ', response);
     setPlaylist(response);
     setIsPlaylistLoading(false);
   }
