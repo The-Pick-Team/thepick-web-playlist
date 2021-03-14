@@ -56,9 +56,13 @@ export function NewPlaylist() {
   );
   async function handleSubmit() {
     setSongIsLoading(true);
-    const response = await NewPlaylistApi.getSong({ url: inputValue });
-    console.log(response);
-    setSongIsLoading(false);
+    try {
+      const response = await NewPlaylistApi.getSong({ url: inputValue });
+      console.log(response);
+      setSongIsLoading(false);
+    } catch (error) {
+      console.log('error', error);
+    }
 
     // setSongs, setPlaylist
   }
