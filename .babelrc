@@ -20,7 +20,9 @@
           "components": "./src/components",
           "app": "./src/app",
           "utils": "./src/utils",
-          "Home": "./src/Home"
+          "Home": "./src/Home",
+          "NewPlaylist": "./src/NewPlaylist",
+          "assets": "./src/assets"
         }
       }
     ]

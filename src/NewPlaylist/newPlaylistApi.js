@@ -9,7 +9,7 @@ export class NewPlaylistApi {
   static getSong({ url }) {
     const encodedUrl = encodeURIComponent(url);
     return fetch(
-      `https://35.190.112.131/songs?songUrl=${encodedUrl}`,
+      `http://35.190.112.131/songs?songUrl=${encodedUrl}`,
     ).then((response) => response.json());
   }
 }
