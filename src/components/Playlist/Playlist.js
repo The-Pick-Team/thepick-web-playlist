@@ -70,7 +70,7 @@ export function Playlist({
 Playlist.propTypes = {
   name: PropTypes.string,
   activeService: PropTypes.string.isRequired,
-  totalSongs: PropTypes.string,
+  totalSongs: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isLoading: PropTypes.bool.isRequired,
   areSongsLoading: PropTypes.bool.isRequired,
   songs: PropTypes.arrayOf(songShape).isRequired,

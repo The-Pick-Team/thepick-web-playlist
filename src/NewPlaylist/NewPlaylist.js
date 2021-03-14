@@ -16,10 +16,13 @@ import { StyledNewPlaylist } from './StyledNewPlaylist';
 export function NewPlaylist() {
   const urlParams = new URLSearchParams(window.location.search);
   const playlistId = urlParams.get('playlistId');
+  const [error, setError] = useState(null);
 
   const [playlist, setPlaylist] = useState({});
   const [isSongLoading, setSongIsLoading] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(
+    'https://www.youtube.com/watch?v=G75O4wGiK5c',
+  );
   const [title, setTitle] = useState('New Playlist');
 
   const [songs, setSongs] = useState([]);
@@ -41,6 +44,7 @@ export function NewPlaylist() {
         onChange={handleInputChange}
         onSubmit={handleSubmit}
         showSubmitButton
+        defaultValue="https://www.youtube.com/watch?v=G75O4wGiK5c"
       />
       {isSongLoading && <span>Fetching the song</span>}
       {songs.length > 0 && (
@@ -57,11 +61,47 @@ export function NewPlaylist() {
   async function handleSubmit() {
     setSongIsLoading(true);
     try {
-      const response = await NewPlaylistApi.getSong({ url: inputValue });
-      console.log(response);
+      /* Fetching song */
+      const newSong = await NewPlaylistApi.getSong({ url: inputValue });
+      if (newSong.statusCode) {
+        setError(newSong);
+        return;
+      }
+      console.log('newSong', newSong);
+
+      /* Creating playlist song is fetched and if no playlist */
+      let newPlaylist;
+      if (!playlist.id) {
+        newPlaylist = await NewPlaylistApi.newPlaylsit();
+        if (newPlaylist.statusCode) {
+          setError(newSong);
+          return;
+        }
+        console.log('newPlaylist', newPlaylist);
+      } else {
+        newPlaylist = { ...playlist };
+      }
+
+      /* Updating playlist with new song */
+      newPlaylist.songs.push(newSong);
+      newPlaylist.title = title;
+      newPlaylist.total = newPlaylist.songs.length;
+
+      const update = await NewPlaylistApi.updatePlaylsit({
+        playlist: { ...newPlaylist },
+      });
+      console.log('update: ', update);
+      console.log('new playlist: ', playlist);
+
+      if (!update.statusCode) {
+        setPlaylist({ ...newPlaylist });
+      }
+
       setSongIsLoading(false);
-    } catch (error) {
-      console.log('error', error);
+    } catch (err) {
+      setError(err);
+      setSongIsLoading(false);
+      console.log('error', err);
     }
 
     // setSongs, setPlaylist
