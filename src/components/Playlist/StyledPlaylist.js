@@ -16,16 +16,6 @@ export const StyledPlaylistName = styled.p`
   letter-spacing: -0.165px;
 `;
 
-export const StyledCopyImage = styled.img`
-  width: 22px;
-  height: 28px;
-  margin: 0 20px;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
 export const StyledPlaylistNameContainer = styled.div`
   display: flex;
   align-items: center;

@@ -37,35 +37,35 @@ const hoverBackgroundColor = ({ theme }) =>
     [INPUT_VARIANTS.TITLE]: theme.palette.secondary.dark,
   });
 
-const fontSize = ({ theme }) =>
+const fontSize = () =>
   styledMap(VARIANT_PROP_NAME, {
     [INPUT_VARIANTS.PRIMARY]: 18,
     [INPUT_VARIANTS.SECONDARY]: 18,
     [INPUT_VARIANTS.TITLE]: 36,
   });
 
-const lineHeight = ({ theme }) =>
+const lineHeight = () =>
   styledMap(VARIANT_PROP_NAME, {
     [INPUT_VARIANTS.PRIMARY]: 27,
     [INPUT_VARIANTS.SECONDARY]: 27,
     [INPUT_VARIANTS.TITLE]: 42,
   });
 
-const fontWeight = ({ theme }) =>
+const fontWeight = () =>
   styledMap(VARIANT_PROP_NAME, {
     [INPUT_VARIANTS.PRIMARY]: '400',
     [INPUT_VARIANTS.SECONDARY]: '400',
     [INPUT_VARIANTS.TITLE]: 'bold',
   });
 
-const padding = ({ theme }) =>
+const padding = () =>
   styledMap(VARIANT_PROP_NAME, {
     [INPUT_VARIANTS.PRIMARY]: '17px 20px',
     [INPUT_VARIANTS.SECONDARY]: '17px 20px',
     [INPUT_VARIANTS.TITLE]: '0 0',
   });
 
-const margin = ({ theme }) =>
+const margin = () =>
   styledMap(VARIANT_PROP_NAME, {
     [INPUT_VARIANTS.PRIMARY]: '0 0 20px 0',
     [INPUT_VARIANTS.SECONDARY]: '0 0 20px 0',
@@ -99,14 +99,14 @@ export const StyledTextInput = styled.input`
   }
 `;
 
-const wrapperPadding = ({ theme }) =>
+const wrapperPadding = () =>
   styledMap(VARIANT_PROP_NAME, {
     [INPUT_VARIANTS.PRIMARY]: '0 20px',
     [INPUT_VARIANTS.SECONDARY]: '0 20px',
     [INPUT_VARIANTS.TITLE]: '0 0',
   });
 
-const wrapperMargin = ({ theme }) =>
+const wrapperMargin = () =>
   styledMap(VARIANT_PROP_NAME, {
     [INPUT_VARIANTS.PRIMARY]: '30px 0 0 0',
     [INPUT_VARIANTS.SECONDARY]: '30px 0 0 0',

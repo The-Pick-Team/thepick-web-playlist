@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import {
   StyledSong,
@@ -9,18 +9,19 @@ import {
 } from './StyledSong';
 
 export const songShape = PropTypes.shape({
-  name: PropTypes.string.isRequired,
-  artist: PropTypes.string.isRequired,
-  duration: PropTypes.string.isRequired,
+  duration: PropTypes.string,
+  url: PropTypes.string,
+  linksByPlatofrm: PropTypes.shape({}), // add shapes
+  artistName: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 });
 
-export function Song({ song, index, activeService }) {
+export function Song({ song, index }) {
   return (
     <StyledSong
       onClick={() => {
-        if (song && song.links && song.links.length > 0 && activeService) {
-          const res = song.links.find((o) => o.platform.name === activeService);
-          window.open(res.url, '_blank');
+        if (song && song.url) {
+          window.open(song.url, '_blank');
         }
       }}
     >
@@ -28,7 +29,8 @@ export function Song({ song, index, activeService }) {
       <StyledSongMeta>
         <StyledSongTitle>{song.title}</StyledSongTitle>
         <StyledSongDescription>
-          {song.artist_name} * {song.duration}
+          {song.artistName}
+          {/* {song.duration ? ` * ${song.duration}` : ''} */}
         </StyledSongDescription>
       </StyledSongMeta>
     </StyledSong>
@@ -38,5 +40,6 @@ export function Song({ song, index, activeService }) {
 Song.propTypes = {
   index: PropTypes.number.isRequired,
   song: songShape.isRequired,
-  activeService: PropTypes.string.isRequired,
 };
+
+Song.defaultProps = {};

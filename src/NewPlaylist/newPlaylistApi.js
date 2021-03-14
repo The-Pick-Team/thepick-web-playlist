@@ -10,7 +10,6 @@ export class NewPlaylistApi {
 
   static getSong({ url }) {
     const encodedUrl = encodeURIComponent(url);
-    console.log('encodedUrl', encodedUrl);
     return fetch(`${endpoint}songs?songUrl=${encodedUrl}`).then((response) =>
       response.json(),
     );
@@ -25,6 +24,9 @@ export class NewPlaylistApi {
   static updatePlaylsit({ playlist }) {
     return fetch(`${endpoint}playlists`, {
       method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(playlist),
     }).then((response) => response.json());
   }

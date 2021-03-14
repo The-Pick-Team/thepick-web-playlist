@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import {
@@ -25,7 +25,7 @@ export function PlaylistName({
   totalSongs,
   editableName,
   playlistUrl,
-  handleTitleChange,
+  handleNameChange,
 }) {
   const [copying, setCopying] = useState(false);
 
@@ -36,17 +36,21 @@ export function PlaylistName({
     }, 2000);
   };
 
+  useEffect(() => {
+    // console.log('defaultName', defaultName);
+  });
+
   return (
     <React.Fragment>
       <StyledWrapper>
         <StyledPlaylistNameContainer>
           {!editableName && <StyledPlaylistName>{name}</StyledPlaylistName>}
-          {editableName && (
+          {editableName && handleNameChange && (
             <TitleInput
               defaultValue={defaultName}
               placeholder="Enter new playlist name"
               variant={INPUT_VARIANTS.TITLE}
-              onChange={handleTitleChange}
+              onChange={handleNameChange}
             />
           )}
 
@@ -75,7 +79,7 @@ PlaylistName.propTypes = {
   totalSongs: PropTypes.string,
   playlistUrl: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   editableName: PropTypes.bool,
-  handleTitleChange: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  handleNameChange: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   defaultName: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 };
 
@@ -84,6 +88,6 @@ PlaylistName.defaultProps = {
   totalSongs: '',
   playlistUrl: false,
   editableName: false,
-  handleTitleChange: false,
+  handleNameChange: false,
   defaultName: '',
 };

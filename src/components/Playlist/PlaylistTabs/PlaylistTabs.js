@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import { BUTTON_VARIANTS, Button } from 'components/Button/Button';
 
@@ -48,7 +49,6 @@ export const SERVICES = [
 ];
 
 export function PlaylistTabs({ onTabChange, activeService }) {
-  const active = useState(0);
   return (
     <StyledPlaylistTabs>
       <StyledPlaylistTabsTitle>
@@ -76,3 +76,8 @@ export function PlaylistTabs({ onTabChange, activeService }) {
     </StyledPlaylistTabs>
   );
 }
+
+PlaylistTabs.propTypes = {
+  onTabChange: PropTypes.func.isRequired,
+  activeService: PropTypes.string.isRequired,
+};

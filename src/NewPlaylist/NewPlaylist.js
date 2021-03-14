@@ -1,5 +1,6 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable dot-notation */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { NewPlaylistApi } from 'NewPlaylist/newPlaylistApi';
 
@@ -15,8 +16,8 @@ import { PlaylistName } from 'components/Playlist/PlaylistName/PlaylistName';
 import { StyledNewPlaylist } from './StyledNewPlaylist';
 
 export function NewPlaylist() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const playlistId = urlParams.get('playlistId');
+  // const urlParams = new URLSearchParams(window.location.search);
+  // const playlistId = urlParams.get('playlistId');
   const [error, setError] = useState(null);
 
   const [playlist, setPlaylist] = useState({});
@@ -26,9 +27,9 @@ export function NewPlaylist() {
   );
   const [name, setName] = useState('New Playlist');
 
-  const [songs, setSongs] = useState([]);
-  const [areSongsLoading, setAreSongsLoading] = useState(true);
-
+  useEffect(() => {
+    // console.log('ma playlist: ', playlist);
+  }, [playlist]);
   return (
     <StyledNewPlaylist>
       <PlaylistName
@@ -47,61 +48,77 @@ export function NewPlaylist() {
         showSubmitButton
         defaultValue="https://www.youtube.com/watch?v=G75O4wGiK5c"
       />
+      {error && error.message && <h1>{error.message}</h1>}
       {isSongLoading && <span>Fetching the song</span>}
-      {songs.length > 0 && (
+      {playlist && playlist.songs && playlist.songs.length > 0 && (
         <SongList
           name={playlist.name}
-          totalSongs={playlist.total_songs}
-          songs={songs}
-          areSongsLoading={areSongsLoading}
+          totalSongs={playlist.total}
+          songs={playlist.songs}
+          areSongsLoading={false}
           isLoading={false}
         />
       )}
     </StyledNewPlaylist>
   );
+
   async function handleSubmit() {
-    setSongIsLoading(true);
     try {
+      setSongIsLoading(true);
       /* Fetching song */
       const newSong = await NewPlaylistApi.getSong({ url: inputValue });
       if (newSong.statusCode) {
         setError(newSong);
         return;
       }
-      console.log('newSong', newSong);
+      // console.log('newSong', newSong);
 
       /* Creating playlist song is fetched and if no playlist */
       let newPlaylist;
-      if (!playlist.id) {
+      if (!playlist['_id']) {
         newPlaylist = await NewPlaylistApi.newPlaylsit();
         if (newPlaylist.statusCode) {
           setError(newSong);
           return;
         }
-        console.log('newPlaylist', newPlaylist);
+        // console.log('newPlaylist', newPlaylist);
       } else {
         newPlaylist = { ...playlist };
       }
 
       /* Updating playlist with new song */
-      const linksByPlatform = [];
+      const linksByPlatform = {};
 
-      newPlaylist.songs.push({
-        artistName: 'test',
-        title: 'test',
-        _id: newSong['_id'],
-        linksByPlatform: { ...newSong.linksByPlatform },
+      Object.keys(newSong.linksByPlatform).forEach((item) => {
+        const key = item.includes('youtube') ? 'youtube' : item;
+
+        const platgorm = {
+          title: newSong.entitiesByUniqueId[key].title,
+          artistName: newSong.entitiesByUniqueId[key].artistName,
+          ...newSong.linksByPlatform[key],
+        };
+        linksByPlatform[key] = { ...platgorm };
       });
 
+      const structuredSong = {
+        _id: newSong['_id'],
+        linksByPlatform: { ...linksByPlatform },
+      };
+
+      // console.log('new playlist before: ', newPlaylist);
+
+      newPlaylist.songs.push(structuredSong);
+
+      /* updating playlist main info */
       newPlaylist.name = name;
       newPlaylist.total = newPlaylist.songs.length;
 
-      console.log('new playlist: ', newPlaylist);
-
+      // console.log('new playlist after: ', newPlaylist);
+      /* PUT playlist in database  */
       const update = await NewPlaylistApi.updatePlaylsit({
         playlist: newPlaylist,
       });
-      console.log('update: ', update);
+      // console.log('update: ', update);
 
       if (!update.statusCode) {
         setPlaylist({ ...newPlaylist });
@@ -111,7 +128,7 @@ export function NewPlaylist() {
     } catch (err) {
       setError(err);
       setSongIsLoading(false);
-      console.log('error', err);
+      // console.log('error', err);
     }
 
     // setSongs, setPlaylist
@@ -121,30 +138,19 @@ export function NewPlaylist() {
     setInputValue(newValue);
   }
 
-  function handleNameChange(newValue) {
+  async function handleNameChange(newValue) {
     if (playlist.name) {
       playlist.name = newValue;
       setPlaylist({ ...playlist });
+      const update = await NewPlaylistApi.updatePlaylsit({
+        ...playlist,
+      });
+      if (update) {
+        // do
+      }
+      // console.log(update);
     }
+
     setName(newValue);
   }
 }
-
-//   async function getPlaylist() {
-//     const response = await HomeApi.getPlaylist({ playlistId });
-//     setPlaylist(response);
-//     setIsPlaylistLoading(false);
-//   }
-
-//   async function getPlaylistSongs() {
-//     setAreSongsLoading(true);
-//     const response = await HomeApi.getPlaylistSongs({
-//       offset: songs.length,
-//       limit: CHUNK_SIZE,
-//       id: playlistId,
-//     });
-//     setSongs((prevState) => [...prevState, ...response]);
-//     setAreSongsLoading(false);
-//     console.log('req call', response);
-//   }
-// }

@@ -18,13 +18,14 @@ export function TextInput({
   defaultValue,
   placeholder,
 }) {
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState('');
   const [defaultValueChanged, setDefaultValueChanged] = useState(false);
 
   useEffect(() => {
-    if (!defaultValueChanged && defaultValue) {
+    if (!defaultValueChanged && defaultValue.length > 0) {
       setValue(defaultValue);
     }
+    // console.log('changing defaultValue: ', defaultValue);
   }, [defaultValueChanged, defaultValue, setValue]);
 
   const handleChange = (e) => {

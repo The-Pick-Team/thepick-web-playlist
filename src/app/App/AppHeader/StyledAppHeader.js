@@ -1,9 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
 import { Link } from 'react-router-dom';
-
-import { StyledButton } from 'components/Button/StyledButton';
 
 const Ls = {};
 
@@ -14,9 +13,18 @@ Ls.NavLink = styled(Link)`
 `;
 
 export function StyledLink(props) {
-  const { to, name, children } = props;
+  const { to, children } = props;
   return <Ls.NavLink to={to}>{children}</Ls.NavLink>;
 }
+StyledLink.propTypes = {
+  to: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+};
+
+StyledLink.defaultProps = {
+  to: '',
+  children: '',
+};
 
 export const StyledAppHeader = styled.div`
   padding: ${({ theme }) => theme.spacing(2)} ${({ theme }) => theme.spacing(4)};

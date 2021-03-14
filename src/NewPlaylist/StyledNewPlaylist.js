@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { StyledPlaylist } from 'components/Playlist/StyledPlaylist';
-
 export const StyledNewPlaylist = styled.div`
   display: flex;
   flex-direction: column;

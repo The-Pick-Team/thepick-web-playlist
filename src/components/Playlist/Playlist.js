@@ -1,23 +1,16 @@
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 
 import { PlaylistName } from 'components/Playlist/PlaylistName/PlaylistName';
 import { PlaylistTabs } from 'components/Playlist/PlaylistTabs/PlaylistTabs';
 import { SongList } from 'components/SongList/SongList';
 import { songShape } from 'components/Song/Song';
 /* Image */
-import copy from 'assets/img/copy.svg';
 
 import {
-  StyledCheck,
-  StyledCopyContainer,
-  StyledCopyImage,
   StyledPlaylist,
   StyledPlaylistDescription,
   StyledPlaylistLoading,
-  StyledPlaylistName,
-  StyledPlaylistNameContainer,
 } from './StyledPlaylist';
 
 export function Playlist({
@@ -29,14 +22,6 @@ export function Playlist({
   onTabChange,
   activeService,
 }) {
-  const [copying, setCopying] = useState(false);
-
-  const onCopy = () => {
-    setCopying(true);
-    setTimeout(() => {
-      setCopying(false);
-    }, 2000);
-  };
   return (
     <StyledPlaylist>
       {isLoading ? (
