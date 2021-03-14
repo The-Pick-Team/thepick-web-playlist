@@ -23,9 +23,10 @@ export class NewPlaylistApi {
   }
 
   static updatePlaylsit({ playlist }) {
-    return fetch(`${endpoint}playlists`, { method: 'PUT' }).then((response) =>
-      response.json(),
-    );
+    return fetch(`${endpoint}playlists`, {
+      method: 'PUT',
+      body: JSON.stringify(playlist),
+    }).then((response) => response.json());
   }
 }
 

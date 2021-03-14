@@ -1,3 +1,4 @@
+/* eslint-disable dot-notation */
 import React, { useState } from 'react';
 
 import { NewPlaylistApi } from 'NewPlaylist/newPlaylistApi';
@@ -23,7 +24,7 @@ export function NewPlaylist() {
   const [inputValue, setInputValue] = useState(
     'https://www.youtube.com/watch?v=G75O4wGiK5c',
   );
-  const [title, setTitle] = useState('New Playlist');
+  const [name, setName] = useState('New Playlist');
 
   const [songs, setSongs] = useState([]);
   const [areSongsLoading, setAreSongsLoading] = useState(true);
@@ -32,9 +33,9 @@ export function NewPlaylist() {
     <StyledNewPlaylist>
       <PlaylistName
         editableName
-        defaultName={title}
+        defaultName={name}
         placeholder="Enter new playlist name"
-        onChange={handleTitleChange}
+        onChange={handleNameChange}
         totalSongs={playlist.totalSongs || '0'}
       />
       <LinkInput
@@ -49,7 +50,7 @@ export function NewPlaylist() {
       {isSongLoading && <span>Fetching the song</span>}
       {songs.length > 0 && (
         <SongList
-          name={playlist.title}
+          name={playlist.name}
           totalSongs={playlist.total_songs}
           songs={songs}
           areSongsLoading={areSongsLoading}
@@ -83,15 +84,24 @@ export function NewPlaylist() {
       }
 
       /* Updating playlist with new song */
-      newPlaylist.songs.push(newSong);
-      newPlaylist.title = title;
+      const linksByPlatform = [];
+
+      newPlaylist.songs.push({
+        artistName: 'test',
+        title: 'test',
+        _id: newSong['_id'],
+        linksByPlatform: { ...newSong.linksByPlatform },
+      });
+
+      newPlaylist.name = name;
       newPlaylist.total = newPlaylist.songs.length;
 
+      console.log('new playlist: ', newPlaylist);
+
       const update = await NewPlaylistApi.updatePlaylsit({
-        playlist: { ...newPlaylist },
+        playlist: newPlaylist,
       });
       console.log('update: ', update);
-      console.log('new playlist: ', playlist);
 
       if (!update.statusCode) {
         setPlaylist({ ...newPlaylist });
@@ -111,8 +121,12 @@ export function NewPlaylist() {
     setInputValue(newValue);
   }
 
-  function handleTitleChange(newValue) {
-    setTitle(newValue);
+  function handleNameChange(newValue) {
+    if (playlist.name) {
+      playlist.name = newValue;
+      setPlaylist({ ...playlist });
+    }
+    setName(newValue);
   }
 }
 
