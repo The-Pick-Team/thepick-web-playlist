@@ -17,10 +17,11 @@ export const songShape = PropTypes.shape({
 });
 
 export function Song({ song, index }) {
+  console.log('jere somg', song);
   return (
     <StyledSong
       onClick={() => {
-        if (song && song.url && !song.noSuchPlatform) {
+        if (song && song.url && !song.noSuchPlatform && !song.disableLink) {
           window.open(song.url, '_blank');
         }
       }}

@@ -13,7 +13,9 @@ export function SongList({ songs, isLoading, activeService }) {
   return (
     <StyledSongList>
       {songs.map((song, index) => {
-        return <Song key={`${song.name}-${index}`} song={song} index={index} />;
+        return (
+          <Song key={`${song.title}-${index}`} song={song} index={index} />
+        );
       })}
       {isLoading && (
         <StyledSongListLoading>Loading songs...</StyledSongListLoading>

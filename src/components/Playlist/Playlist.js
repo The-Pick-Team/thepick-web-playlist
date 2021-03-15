@@ -45,6 +45,7 @@ export function Playlist({
       const processsedSongs = [];
       if (songs) {
         songs.forEach((element) => {
+          console.log('el: ', handleSong(element));
           processsedSongs.push(handleSong(element));
         });
         setSongsUpdated(processsedSongs);
@@ -74,11 +75,13 @@ export function Playlist({
                 onTabChange={handleTabChange}
                 activeService={activeService}
               />
-              <SongList
-                songs={songsUpdated}
-                isLoading={areSongsLoading}
-                activeService={activeService}
-              />
+              {songsUpdated && songsUpdated.length > 0 && (
+                <SongList
+                  songs={songsUpdated}
+                  isLoading={areSongsLoading}
+                  activeService={activeService}
+                />
+              )}
             </div>
           )}
         </React.Fragment>

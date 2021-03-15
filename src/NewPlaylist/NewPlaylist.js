@@ -27,10 +27,35 @@ export function NewPlaylist() {
     'https://www.youtube.com/watch?v=lE6o9apwuOw&list=PLVwklrDoLR29JsIwXpRZQFNg_faYxTma4',
   );
   const [name, setName] = useState('New Playlist');
+  const [songsUpdated, setSongsUpdated] = useState([]);
 
   useEffect(() => {
-    // console.log('ma playlist: ', playlist);
-  }, [playlist]);
+    let mounted = true;
+    function handleSong(song) {
+      const activeService = Object.keys(song.linksByPlatform)[0];
+      let pick;
+      if (song && song.linksByPlatform && song.linksByPlatform[activeService]) {
+        pick = song.linksByPlatform[activeService];
+        pick.disableLink = true;
+      }
+      return pick;
+    }
+    if (mounted) {
+      const processsedSongs = [];
+      if (playlist['_id']) {
+        playlist.songs.forEach((element) => {
+          processsedSongs.push(handleSong(element));
+        });
+        setSongsUpdated(processsedSongs);
+      }
+    }
+
+    return () => {
+      mounted = false;
+    };
+    // setSongsUpdated(processsedSongs);
+  }, [playlist, setSongsUpdated]);
+
   return (
     <StyledNewPlaylist>
       <PlaylistName
@@ -61,7 +86,7 @@ export function NewPlaylist() {
           <SongList
             name={playlist.name}
             totalSongs={playlist.total}
-            songs={playlist.songs}
+            songs={songsUpdated}
             areSongsLoading={false}
             isLoading={false}
           />
@@ -100,37 +125,40 @@ export function NewPlaylist() {
       // console.log('heya', Object.keys(newSong.linksByPlatform));
 
       Object.keys(newSong.linksByPlatform).forEach((key) => {
-        let keyFiltered;
+        const info = {
+          title: '',
+          artistName: '',
+        };
+        let entitiesKey = key;
         switch (key) {
           case 'youtubeMusic':
-            keyFiltered = 'youtube';
+            entitiesKey = 'youtube';
             break;
           case 'appleMusic':
-            keyFiltered = 'itunes';
+            entitiesKey = 'itunes';
             break;
           case 'amazonMusic':
           case 'amazonStore':
-            keyFiltered = 'amazon';
+            entitiesKey = 'amazon';
             break;
           default:
-            keyFiltered = key;
+            entitiesKey = key;
         }
+        info.title = entitiesByUniqueId[entitiesKey].title;
+        info.artistName = entitiesByUniqueId[entitiesKey].artistName;
 
-        const platgorm = {
-          title: entitiesByUniqueId[keyFiltered].title,
-          artistName: entitiesByUniqueId[keyFiltered].artistName,
-          ...linksByPlatform[keyFiltered],
+        const platform = {
+          ...info,
+          ...linksByPlatform[key],
         };
-
-        linksByPlatformNew[keyFiltered] = { ...platgorm };
+        linksByPlatformNew[key] = { ...platform };
       });
 
       const structuredSong = {
         _id: newSong['_id'],
         linksByPlatform: { ...linksByPlatformNew },
       };
-
-      // console.log('new playlist before: ', newPlaylist);
+      // console.log('structuredSong', structuredSong);
 
       newPlaylist.songs.push(structuredSong);
 
@@ -171,10 +199,6 @@ export function NewPlaylist() {
       const update = await NewPlaylistApi.updatePlaylsit({
         playlist: newPlaylist,
       });
-      if (update) {
-        console.log('done!');
-      }
-      // console.log(update);
     }
 
     setName(newValue);

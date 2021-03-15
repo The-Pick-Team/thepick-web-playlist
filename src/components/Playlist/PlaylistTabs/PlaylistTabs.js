@@ -74,6 +74,7 @@ export function PlaylistTabs({ songs, onTabChange, activeService }) {
   useEffect(() => {
     if (songs) {
       const listOfPlatforms = [];
+
       songs.forEach((song) => {
         if (song.linksByPlatform) {
           Object.keys(song.linksByPlatform).forEach((platformId) => {
