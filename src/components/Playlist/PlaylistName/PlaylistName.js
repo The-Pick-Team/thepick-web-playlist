@@ -50,15 +50,14 @@ export function PlaylistName({
             />
           )}
 
-          <CopyToClipboard
-            text={playlistUrl || window.location.href}
-            onCopy={onCopy}
-          >
-            <StyledCopyContainer>
-              <StyledCopyImage src={copy} />
-              {copying && <StyledCheck>copied</StyledCheck>}
-            </StyledCopyContainer>
-          </CopyToClipboard>
+          {playlistUrl && (
+            <CopyToClipboard text={playlistUrl} onCopy={onCopy}>
+              <StyledCopyContainer>
+                <StyledCopyImage src={copy} />
+                {copying && <StyledCheck>copied</StyledCheck>}
+              </StyledCopyContainer>
+            </CopyToClipboard>
+          )}
         </StyledPlaylistNameContainer>
         {totalSongs && (
           <StyledPlaylistDescription>

@@ -63,7 +63,14 @@ export const SERVICES = [
 export function PlaylistTabs({ songs, onTabChange, activeService }) {
   const [songPlatforms, setSongPlatforms] = useState([]);
   const [active, setActive] = useState();
-  function handleTab(tab) {}
+
+  const handleTab = (tab) => {
+    setActive(tab);
+    if (onTabChange) {
+      onTabChange(tab);
+    }
+  };
+
   useEffect(() => {
     if (songs) {
       const listOfPlatforms = [];
@@ -86,9 +93,9 @@ export function PlaylistTabs({ songs, onTabChange, activeService }) {
         }
       });
       setSongPlatforms(listOfPlatforms);
-      onTabChange(listOfPlatforms[0].id);
+      handleTab(listOfPlatforms[0].id);
     }
-  }, [songs, setSongPlatforms, onTabChange, activeService]);
+  }, [songs, setSongPlatforms]);
 
   return (
     <StyledPlaylistTabs>
@@ -105,7 +112,7 @@ export function PlaylistTabs({ songs, onTabChange, activeService }) {
                 : BUTTON_VARIANTS.PRIMARY
             }
             onClick={() => {
-              onTabChange(item);
+              handleTab(item.id);
             }}
           >
             {item.name}

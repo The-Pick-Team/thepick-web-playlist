@@ -22,10 +22,9 @@ export function Playlist({
 }) {
   const [activeService, setActiveService] = useState();
 
-  function handleTabChange(platform) {
-    console.log('platform', platform);
-
-    setActiveService(platform.id);
+  function handleTabChange(tab) {
+    console.log('Playlist - onchange tab', tab);
+    setActiveService(tab);
   }
 
   return (
@@ -36,7 +35,7 @@ export function Playlist({
         <React.Fragment>
           {name && (
             <div>
-              <PlaylistName name={name} />
+              <PlaylistName name={name} playlistUrl={window.location.href} />
               <StyledPlaylistDescription>
                 {totalSongs} songs
               </StyledPlaylistDescription>

@@ -19,8 +19,6 @@ import {
 } from './StyledNewPlaylist';
 
 export function NewPlaylist() {
-  // const urlParams = new URLSearchParams(window.location.search);
-  // const playlistId = urlParams.get('playlistId');
   const [error, setError] = useState(null);
 
   const [playlist, setPlaylist] = useState({});
@@ -36,6 +34,11 @@ export function NewPlaylist() {
   return (
     <StyledNewPlaylist>
       <PlaylistName
+        playlistUrl={
+          playlist['_id']
+            ? `${window.location.origin}/?playlistId=${playlist['_id']}`
+            : false
+        }
         editableName
         defaultName={name}
         placeholder="Enter new playlist name"
@@ -162,13 +165,14 @@ export function NewPlaylist() {
 
   async function handleNameChange(newValue) {
     if (playlist.name) {
-      playlist.name = newValue;
-      setPlaylist({ ...playlist });
+      const newPlaylist = { ...playlist };
+      newPlaylist.name = newValue;
+      setPlaylist({ ...newPlaylist });
       const update = await NewPlaylistApi.updatePlaylsit({
-        ...playlist,
+        playlist: newPlaylist,
       });
       if (update) {
-        // do
+        console.log('done!');
       }
       // console.log(update);
     }
