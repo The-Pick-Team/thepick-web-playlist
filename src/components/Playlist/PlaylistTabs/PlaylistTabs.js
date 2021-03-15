@@ -62,6 +62,8 @@ export const SERVICES = [
 
 export function PlaylistTabs({ songs, onTabChange, activeService }) {
   const [songPlatforms, setSongPlatforms] = useState([]);
+  const [active, setActive] = useState();
+  function handleTab(tab) {}
   useEffect(() => {
     if (songs) {
       const listOfPlatforms = [];
@@ -86,7 +88,6 @@ export function PlaylistTabs({ songs, onTabChange, activeService }) {
       setSongPlatforms(listOfPlatforms);
       onTabChange(listOfPlatforms[0].id);
     }
-    // setSongPlatforms(platforms);
   }, [songs, setSongPlatforms, onTabChange, activeService]);
 
   return (
@@ -94,25 +95,26 @@ export function PlaylistTabs({ songs, onTabChange, activeService }) {
       <StyledPlaylistTabsTitle>
         Select your streaming service
       </StyledPlaylistTabsTitle>
-      {songPlatforms.map((item, index) => (
-        <Button
-          key={index}
-          variant={
-            item.id === activeService
-              ? BUTTON_VARIANTS.PRIMARY_ACTIVE
-              : BUTTON_VARIANTS.PRIMARY
-          }
-          onClick={() => {
-            onTabChange(item);
-          }}
-        >
-          {item.name}
-          <StyledImage
-            src={item.id === activeService ? item.imgActive : item.img}
-            alt=""
-          />
-        </Button>
-      ))}
+      {active &&
+        songPlatforms.map((item, index) => (
+          <Button
+            key={index}
+            variant={
+              item.id === activeService
+                ? BUTTON_VARIANTS.PRIMARY_ACTIVE
+                : BUTTON_VARIANTS.PRIMARY
+            }
+            onClick={() => {
+              onTabChange(item);
+            }}
+          >
+            {item.name}
+            <StyledImage
+              src={item.id === activeService ? item.imgActive : item.img}
+              alt=""
+            />
+          </Button>
+        ))}
     </StyledPlaylistTabs>
   );
 }

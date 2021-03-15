@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const StyledPlaylist = styled.div`
   display: flex;
   flex-direction: column;
-  width: сфдс(100% - 40px);
+  width: calc(100% - 40px);
   max-width: 660px;
   padding: 0 20px;
 `;
