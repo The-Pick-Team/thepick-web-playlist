@@ -80,7 +80,6 @@ export function PlaylistTabs({ songs, onTabChange, activeService }) {
             const current = SERVICES.filter(
               (service) => service.id === platformId,
             );
-
             if (current.length > 0) {
               const isInArray = listOfPlatforms.find(
                 (element) => element.id === current[0].id,

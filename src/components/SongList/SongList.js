@@ -8,20 +8,12 @@ import { Song, songShape } from 'components/Song/Song';
 import { StyledSongList, StyledSongListLoading } from './StyledSongList';
 
 export function SongList({ songs, isLoading, activeService }) {
+  useEffect(() => {}, [activeService]);
+
   return (
     <StyledSongList>
       {songs.map((song, index) => {
-        return (
-          <Song
-            key={`${song.name}-${index}`}
-            song={
-              song &&
-              song.linksByPlatform &&
-              song.linksByPlatform[activeService]
-            }
-            index={index}
-          />
-        );
+        return <Song key={`${song.name}-${index}`} song={song} index={index} />;
       })}
       {isLoading && (
         <StyledSongListLoading>Loading songs...</StyledSongListLoading>

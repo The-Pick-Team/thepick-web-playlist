@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { PlaylistName } from 'components/Playlist/PlaylistName/PlaylistName';
 import { PlaylistTabs } from 'components/Playlist/PlaylistTabs/PlaylistTabs';
@@ -21,11 +21,41 @@ export function Playlist({
   areSongsLoading,
 }) {
   const [activeService, setActiveService] = useState();
+  const [songsUpdated, setSongsUpdated] = useState([]);
 
   function handleTabChange(tab) {
-    console.log('Playlist - onchange tab', tab);
     setActiveService(tab);
   }
+
+  useEffect(() => {
+    let mounted = true;
+    function handleSong(song) {
+      let pick;
+      if (song && song.linksByPlatform && song.linksByPlatform[activeService]) {
+        pick = song.linksByPlatform[activeService];
+        pick.noSuchPlatform = false;
+      } else {
+        const key = Object.keys(song.linksByPlatform)[0];
+        pick = song.linksByPlatform[key];
+        pick.noSuchPlatform = true;
+      }
+      return pick;
+    }
+    if (mounted) {
+      const processsedSongs = [];
+      if (songs) {
+        songs.forEach((element) => {
+          processsedSongs.push(handleSong(element));
+        });
+        setSongsUpdated(processsedSongs);
+      }
+    }
+
+    return () => {
+      mounted = false;
+    };
+    // setSongsUpdated(processsedSongs);
+  }, [songs, activeService, setSongsUpdated]);
 
   return (
     <StyledPlaylist>
@@ -45,7 +75,7 @@ export function Playlist({
                 activeService={activeService}
               />
               <SongList
-                songs={songs}
+                songs={songsUpdated}
                 isLoading={areSongsLoading}
                 activeService={activeService}
               />

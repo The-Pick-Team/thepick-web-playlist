@@ -20,14 +20,14 @@ export function Song({ song, index }) {
   return (
     <StyledSong
       onClick={() => {
-        if (song && song.url) {
+        if (song && song.url && !song.noSuchPlatform) {
           window.open(song.url, '_blank');
         }
       }}
     >
       {index + 1}
       {song && (
-        <StyledSongMeta>
+        <StyledSongMeta semiTransparent={song.noSuchPlatform}>
           <StyledSongTitle>{song.title}</StyledSongTitle>
           <StyledSongDescription>
             {song.artistName}

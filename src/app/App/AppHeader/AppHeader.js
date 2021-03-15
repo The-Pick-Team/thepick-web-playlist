@@ -7,8 +7,8 @@ import { StyledAppHeader, StyledLink, StyledLogo } from './StyledAppHeader';
 export function AppHeader() {
   return (
     <StyledAppHeader>
-      <StyledLink to="/?playlistId=604f7ee29a2675204a3f3ae4">
-        <StyledLogo src={logo} alt="thepick" />
+      <StyledLink to="/?playlistId=604f8f939a267503103f3af6">
+        thepick
       </StyledLink>
       <StyledLink to="newplaylist">Create Playlist</StyledLink>
     </StyledAppHeader>

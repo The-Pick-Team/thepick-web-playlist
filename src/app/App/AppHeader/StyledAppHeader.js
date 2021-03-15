@@ -10,6 +10,11 @@ Ls.NavLink = styled(Link)`
   display: flex;
   align-items: center;
   color: white;
+  padding: 20px 10px;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export function StyledLink(props) {
