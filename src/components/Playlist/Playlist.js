@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { PlaylistName } from 'components/Playlist/PlaylistName/PlaylistName';
 import { PlaylistTabs } from 'components/Playlist/PlaylistTabs/PlaylistTabs';
@@ -19,9 +19,15 @@ export function Playlist({
   songs,
   isLoading,
   areSongsLoading,
-  onTabChange,
-  activeService,
 }) {
+  const [activeService, setActiveService] = useState();
+
+  function handleTabChange(platform) {
+    console.log('platform', platform);
+
+    setActiveService(platform.id);
+  }
+
   return (
     <StyledPlaylist>
       {isLoading ? (
@@ -35,10 +41,10 @@ export function Playlist({
                 {totalSongs} songs
               </StyledPlaylistDescription>
               <PlaylistTabs
-                onTabChange={onTabChange}
+                songs={songs}
+                onTabChange={handleTabChange}
                 activeService={activeService}
               />
-
               <SongList
                 songs={songs}
                 isLoading={areSongsLoading}
@@ -54,12 +60,10 @@ export function Playlist({
 
 Playlist.propTypes = {
   name: PropTypes.string,
-  activeService: PropTypes.string.isRequired,
   totalSongs: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isLoading: PropTypes.bool.isRequired,
   areSongsLoading: PropTypes.bool.isRequired,
   songs: PropTypes.arrayOf(songShape).isRequired,
-  onTabChange: PropTypes.func.isRequired,
 };
 
 Playlist.defaultProps = {

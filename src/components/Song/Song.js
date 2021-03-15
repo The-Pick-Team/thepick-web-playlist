@@ -26,13 +26,15 @@ export function Song({ song, index }) {
       }}
     >
       {index + 1}
-      <StyledSongMeta>
-        <StyledSongTitle>{song.title}</StyledSongTitle>
-        <StyledSongDescription>
-          {song.artistName}
-          {/* {song.duration ? ` * ${song.duration}` : ''} */}
-        </StyledSongDescription>
-      </StyledSongMeta>
+      {song && (
+        <StyledSongMeta>
+          <StyledSongTitle>{song.title}</StyledSongTitle>
+          <StyledSongDescription>
+            {song.artistName}
+            {/* {song.duration ? ` * ${song.duration}` : ''} */}
+          </StyledSongDescription>
+        </StyledSongMeta>
+      )}
     </StyledSong>
   );
 }

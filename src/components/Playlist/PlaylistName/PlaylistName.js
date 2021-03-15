@@ -36,10 +36,6 @@ export function PlaylistName({
     }, 2000);
   };
 
-  useEffect(() => {
-    // console.log('defaultName', defaultName);
-  });
-
   return (
     <React.Fragment>
       <StyledWrapper>

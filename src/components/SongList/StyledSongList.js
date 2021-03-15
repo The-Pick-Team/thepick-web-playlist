@@ -4,6 +4,7 @@ import { StyledSong } from 'components/Song/StyledSong';
 
 export const StyledSongList = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
   margin-top: ${({ theme }) => theme.spacing(8)};
 

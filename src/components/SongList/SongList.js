@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { SERVICES } from 'components/Playlist/PlaylistTabs/PlaylistTabs';
 
@@ -20,7 +20,6 @@ export function SongList({ songs, isLoading, activeService }) {
               song.linksByPlatform[activeService]
             }
             index={index}
-            activeService={activeService}
           />
         );
       })}

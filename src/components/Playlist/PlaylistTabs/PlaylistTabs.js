@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { BUTTON_VARIANTS, Button } from 'components/Button/Button';
 
@@ -29,6 +29,12 @@ export const SERVICES = [
     imgActive: youtubeActive,
   },
   {
+    name: 'Youtube Music',
+    id: 'youtubeMusic',
+    img: youtube,
+    imgActive: youtubeActive,
+  },
+  {
     name: 'Spotify',
     id: 'spotify',
     img: spotify,
@@ -41,6 +47,12 @@ export const SERVICES = [
     imgActive: appleMusicActive,
   },
   {
+    name: 'Apple Music',
+    id: 'itunes',
+    img: appleMusic,
+    imgActive: appleMusicActive,
+  },
+  {
     name: 'Deezer',
     id: 'deezer',
     img: deezer,
@@ -48,13 +60,41 @@ export const SERVICES = [
   },
 ];
 
-export function PlaylistTabs({ onTabChange, activeService }) {
+export function PlaylistTabs({ songs, onTabChange, activeService }) {
+  const [songPlatforms, setSongPlatforms] = useState([]);
+  useEffect(() => {
+    if (songs) {
+      const listOfPlatforms = [];
+      songs.forEach((song) => {
+        if (song.linksByPlatform) {
+          Object.keys(song.linksByPlatform).forEach((platformId) => {
+            const current = SERVICES.filter(
+              (service) => service.id === platformId,
+            );
+
+            if (current.length > 0) {
+              const isInArray = listOfPlatforms.find(
+                (element) => element.id === current[0].id,
+              );
+              if (!isInArray) {
+                listOfPlatforms.push(current[0]);
+              }
+            }
+          });
+        }
+      });
+      setSongPlatforms(listOfPlatforms);
+      onTabChange(listOfPlatforms[0].id);
+    }
+    // setSongPlatforms(platforms);
+  }, [songs, setSongPlatforms, onTabChange, activeService]);
+
   return (
     <StyledPlaylistTabs>
       <StyledPlaylistTabsTitle>
         Select your streaming service
       </StyledPlaylistTabsTitle>
-      {SERVICES.map((item, index) => (
+      {songPlatforms.map((item, index) => (
         <Button
           key={index}
           variant={
@@ -78,6 +118,7 @@ export function PlaylistTabs({ onTabChange, activeService }) {
 }
 
 PlaylistTabs.propTypes = {
+  songs: PropTypes.arrayOf([PropTypes.shape({})]).isRequired,
   onTabChange: PropTypes.func.isRequired,
   activeService: PropTypes.string.isRequired,
 };

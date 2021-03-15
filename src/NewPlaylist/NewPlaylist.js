@@ -13,7 +13,10 @@ import { SongList } from 'components/SongList/SongList';
 
 import { PlaylistName } from 'components/Playlist/PlaylistName/PlaylistName';
 
-import { StyledNewPlaylist } from './StyledNewPlaylist';
+import {
+  StyledNewPlaylist,
+  StyledSongListContainer,
+} from './StyledNewPlaylist';
 
 export function NewPlaylist() {
   // const urlParams = new URLSearchParams(window.location.search);
@@ -23,7 +26,7 @@ export function NewPlaylist() {
   const [playlist, setPlaylist] = useState({});
   const [isSongLoading, setSongIsLoading] = useState(false);
   const [inputValue, setInputValue] = useState(
-    'https://www.youtube.com/watch?v=G75O4wGiK5c',
+    'https://www.youtube.com/watch?v=lE6o9apwuOw&list=PLVwklrDoLR29JsIwXpRZQFNg_faYxTma4',
   );
   const [name, setName] = useState('New Playlist');
 
@@ -36,7 +39,7 @@ export function NewPlaylist() {
         editableName
         defaultName={name}
         placeholder="Enter new playlist name"
-        onChange={handleNameChange}
+        handleNameChange={handleNameChange}
         totalSongs={playlist.totalSongs || '0'}
       />
       <LinkInput
@@ -46,18 +49,20 @@ export function NewPlaylist() {
         onChange={handleInputChange}
         onSubmit={handleSubmit}
         showSubmitButton
-        defaultValue="https://www.youtube.com/watch?v=G75O4wGiK5c"
+        defaultValue="https://www.youtube.com/watch?v=lE6o9apwuOw&list=PLVwklrDoLR29JsIwXpRZQFNg_faYxTma4"
       />
       {error && error.message && <h1>{error.message}</h1>}
       {isSongLoading && <span>Fetching the song</span>}
       {playlist && playlist.songs && playlist.songs.length > 0 && (
-        <SongList
-          name={playlist.name}
-          totalSongs={playlist.total}
-          songs={playlist.songs}
-          areSongsLoading={false}
-          isLoading={false}
-        />
+        <StyledSongListContainer>
+          <SongList
+            name={playlist.name}
+            totalSongs={playlist.total}
+            songs={playlist.songs}
+            areSongsLoading={false}
+            isLoading={false}
+          />
+        </StyledSongListContainer>
       )}
     </StyledNewPlaylist>
   );
@@ -87,22 +92,39 @@ export function NewPlaylist() {
       }
 
       /* Updating playlist with new song */
-      const linksByPlatform = {};
+      const linksByPlatformNew = {};
+      const { linksByPlatform, entitiesByUniqueId } = newSong;
+      // console.log('heya', Object.keys(newSong.linksByPlatform));
 
-      Object.keys(newSong.linksByPlatform).forEach((item) => {
-        const key = item.includes('youtube') ? 'youtube' : item;
+      Object.keys(newSong.linksByPlatform).forEach((key) => {
+        let keyFiltered;
+        switch (key) {
+          case 'youtubeMusic':
+            keyFiltered = 'youtube';
+            break;
+          case 'appleMusic':
+            keyFiltered = 'itunes';
+            break;
+          case 'amazonMusic':
+          case 'amazonStore':
+            keyFiltered = 'amazon';
+            break;
+          default:
+            keyFiltered = key;
+        }
 
         const platgorm = {
-          title: newSong.entitiesByUniqueId[key].title,
-          artistName: newSong.entitiesByUniqueId[key].artistName,
-          ...newSong.linksByPlatform[key],
+          title: entitiesByUniqueId[keyFiltered].title,
+          artistName: entitiesByUniqueId[keyFiltered].artistName,
+          ...linksByPlatform[keyFiltered],
         };
-        linksByPlatform[key] = { ...platgorm };
+
+        linksByPlatformNew[keyFiltered] = { ...platgorm };
       });
 
       const structuredSong = {
         _id: newSong['_id'],
-        linksByPlatform: { ...linksByPlatform },
+        linksByPlatform: { ...linksByPlatformNew },
       };
 
       // console.log('new playlist before: ', newPlaylist);
@@ -128,7 +150,7 @@ export function NewPlaylist() {
     } catch (err) {
       setError(err);
       setSongIsLoading(false);
-      // console.log('error', err);
+      console.log('error', err);
     }
 
     // setSongs, setPlaylist
