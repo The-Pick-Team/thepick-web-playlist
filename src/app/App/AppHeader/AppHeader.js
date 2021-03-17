@@ -1,16 +1,12 @@
 import React from 'react';
 
-import logo from 'assets/img/thepickbot.svg';
-
-import { StyledAppHeader, StyledLink, StyledLogo } from './StyledAppHeader';
+import { StyledAppHeader, StyledLink } from './StyledAppHeader';
 
 export function AppHeader() {
   return (
     <StyledAppHeader>
-      <StyledLink to="/?playlistId=604f8f939a267503103f3af6">
-        thepick
-      </StyledLink>
-      <StyledLink to="newplaylist">Create Playlist</StyledLink>
+      <StyledLink to="/playlist/60515ff1692e4b0d493b2502">thepick</StyledLink>
+      <StyledLink to="/newplaylist">Create Playlist</StyledLink>
     </StyledAppHeader>
   );
 }

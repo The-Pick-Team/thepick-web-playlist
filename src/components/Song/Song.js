@@ -17,7 +17,6 @@ export const songShape = PropTypes.shape({
 });
 
 export function Song({ song, index }) {
-  console.log('jere somg', song);
   return (
     <StyledSong
       onClick={() => {

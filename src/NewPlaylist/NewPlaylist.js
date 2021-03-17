@@ -54,19 +54,22 @@ export function NewPlaylist() {
     // setSongsUpdated(processsedSongs);
   }, [playlist, setSongsUpdated]);
 
+  function getUrl() {
+    return playlist['_id']
+      ? `${window.location.origin}/thepick-web-playlist/playlist/${playlist['_id']}`
+      : false;
+  }
+  // https://the-pick-team.github.io/?playlistId=60515fa4692e4b91293b2501
+
   return (
     <StyledNewPlaylist>
       <PlaylistName
-        playlistUrl={
-          playlist['_id']
-            ? `${window.location.origin}/?playlistId=${playlist['_id']}`
-            : false
-        }
+        playlistUrl={getUrl()}
         editableName
         defaultName={name}
         placeholder="Enter new playlist name"
         handleNameChange={handleNameChange}
-        totalSongs={playlist.totalSongs || '0'}
+        totalSongs={playlist.total || '0'}
       />
       <LinkInput
         label="Paste song link"
@@ -84,7 +87,6 @@ export function NewPlaylist() {
         <StyledSongListContainer>
           <SongList
             name={playlist.name}
-            totalSongs={playlist.total}
             songs={songsUpdated}
             areSongsLoading={false}
             isLoading={false}
@@ -177,6 +179,7 @@ export function NewPlaylist() {
       }
       setInputValue('');
       setSongIsLoading(false);
+      console.log(newPlaylist);
     } catch (err) {
       setError(err);
       setSongIsLoading(false);

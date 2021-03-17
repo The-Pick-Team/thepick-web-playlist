@@ -30,6 +30,7 @@ export function PlaylistName({
   const [copying, setCopying] = useState(false);
 
   const onCopy = () => {
+    console.log('url copied: ', playlistUrl);
     setCopying(true);
     setTimeout(() => {
       setCopying(false);

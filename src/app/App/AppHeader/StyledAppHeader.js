@@ -43,8 +43,3 @@ export const StyledAppHeader = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-
-export const StyledLogo = styled.img`
-  width: 156px;
-  height: 50px;
-`;

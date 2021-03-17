@@ -71,22 +71,19 @@ export function PlaylistTabs({ songs, onTabChange, activeService }) {
 
       songs.forEach((song) => {
         if (song.linksByPlatform) {
-          Object.keys(song.linksByPlatform).forEach((platformId) => {
-            const current = SERVICES.filter(
-              (service) => service.id === platformId,
+          const { linksByPlatform } = song;
+          SERVICES.forEach((platform, index) => {
+            const found = listOfPlatforms.filter(
+              (item) => item.id === platform.id,
             );
-            if (current.length > 0) {
-              const isInArray = listOfPlatforms.find(
-                (element) => element.id === current[0].id,
-              );
-              if (!isInArray) {
-                listOfPlatforms.push(current[0]);
-              }
+            if (linksByPlatform[platform.id] && found.length === 0) {
+              listOfPlatforms.push(SERVICES[index]);
             }
           });
         }
       });
       setSongPlatforms(listOfPlatforms);
+      console.log('listOfPlatforms', listOfPlatforms);
       handleTab(listOfPlatforms[0].id);
     }
   }, [songs, setSongPlatforms]);

@@ -20,8 +20,8 @@ export const App = () => {
         <StyledApp>
           <AppHeader />
           <Switch>
-            <Route exact path="/" component={Home} />
             <Route path="/newplaylist" component={NewPlaylist} />
+            <Route path="/playlist/:id" component={Home} />
           </Switch>
         </StyledApp>
       </AppThemeProvider>
