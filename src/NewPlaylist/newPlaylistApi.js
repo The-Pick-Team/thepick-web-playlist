@@ -1,13 +1,6 @@
-const endpoint = 'http://35.190.112.131/';
+const endpoint = 'https://api.thepick.space/';
 
 export class NewPlaylistApi {
-  static getPlaylist({ playlistId }) {
-    // console.log('playlistId', playlistId);
-    return fetch(
-      `https://thepick.saport.io/api/playlists/${playlistId}`,
-    ).then((response) => response.json());
-  }
-
   static getSong({ url }) {
     const encodedUrl = encodeURIComponent(url);
     return fetch(`${endpoint}songs?songUrl=${encodedUrl}`).then((response) =>

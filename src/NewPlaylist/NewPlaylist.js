@@ -23,9 +23,7 @@ export function NewPlaylist() {
 
   const [playlist, setPlaylist] = useState({});
   const [isSongLoading, setSongIsLoading] = useState(false);
-  const [inputValue, setInputValue] = useState(
-    'https://www.youtube.com/watch?v=lE6o9apwuOw&list=PLVwklrDoLR29JsIwXpRZQFNg_faYxTma4',
-  );
+  const [inputValue, setInputValue] = useState();
   const [name, setName] = useState('New Playlist');
   const [songsUpdated, setSongsUpdated] = useState([]);
 
@@ -77,7 +75,8 @@ export function NewPlaylist() {
         onChange={handleInputChange}
         onSubmit={handleSubmit}
         showSubmitButton
-        defaultValue="https://www.youtube.com/watch?v=lE6o9apwuOw&list=PLVwklrDoLR29JsIwXpRZQFNg_faYxTma4"
+        refreshOnSubmit
+        disabledSubmit={!inputValue || !inputValue.length > 0 || isSongLoading}
       />
       {error && error.message && <h1>{error.message}</h1>}
       {isSongLoading && <span>Fetching the song</span>}
@@ -176,7 +175,7 @@ export function NewPlaylist() {
       if (!update.statusCode) {
         setPlaylist({ ...newPlaylist });
       }
-
+      setInputValue('');
       setSongIsLoading(false);
     } catch (err) {
       setError(err);

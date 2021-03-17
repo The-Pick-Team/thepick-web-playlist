@@ -17,18 +17,14 @@ export function TextInput({
   showSubmitButton,
   defaultValue,
   placeholder,
+  refreshOnSubmit,
+  disabledSubmit,
 }) {
   const [value, setValue] = useState();
   const [defaultValueChanged, setDefaultValueChanged] = useState(false);
 
   useEffect(() => {
     if (!defaultValueChanged && defaultValue.length > 0) {
-      console.log(
-        'changing defaultValue: ',
-        defaultValueChanged,
-        defaultValue,
-        defaultValue.length > 0,
-      );
       setValue(defaultValue);
     }
   }, [defaultValueChanged, defaultValue, setValue]);
@@ -44,7 +40,12 @@ export function TextInput({
   };
 
   const handleSubmit = () => {
-    onSubmit();
+    if (!disabledSubmit) {
+      if (refreshOnSubmit) {
+        setValue('');
+      }
+      onSubmit();
+    }
   };
 
   return (
@@ -62,6 +63,7 @@ export function TextInput({
           type="submit"
           onClick={handleSubmit}
           value="Generate"
+          disabledSubmit
         />
       )}
     </StyledTextInputWrapper>
@@ -76,6 +78,8 @@ TextInput.propTypes = {
   showSubmitButton: PropTypes.bool,
   defaultValue: PropTypes.string,
   placeholder: PropTypes.string,
+  refreshOnSubmit: PropTypes.bool,
+  disabledSubmit: PropTypes.bool,
 };
 
 TextInput.defaultProps = {
@@ -84,6 +88,8 @@ TextInput.defaultProps = {
   showSubmitButton: false,
   defaultValue: '',
   placeholder: '',
+  refreshOnSubmit: false,
+  disabledSubmit: false,
 };
 
 export { INPUT_VARIANTS };

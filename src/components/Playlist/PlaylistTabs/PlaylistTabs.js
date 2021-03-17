@@ -47,12 +47,6 @@ export const SERVICES = [
     imgActive: appleMusicActive,
   },
   {
-    name: 'Apple Music',
-    id: 'itunes',
-    img: appleMusic,
-    imgActive: appleMusicActive,
-  },
-  {
     name: 'Deezer',
     id: 'deezer',
     img: deezer,
@@ -103,25 +97,30 @@ export function PlaylistTabs({ songs, onTabChange, activeService }) {
         Select your streaming service
       </StyledPlaylistTabsTitle>
       {active &&
-        songPlatforms.map((item, index) => (
-          <Button
-            key={index}
-            variant={
-              item.id === activeService
-                ? BUTTON_VARIANTS.PRIMARY_ACTIVE
-                : BUTTON_VARIANTS.PRIMARY
-            }
-            onClick={() => {
-              handleTab(item.id);
-            }}
-          >
-            {item.name}
-            <StyledImage
-              src={item.id === activeService ? item.imgActive : item.img}
-              alt=""
-            />
-          </Button>
-        ))}
+        SERVICES.map((item, index) => {
+          if (songPlatforms.filter((pl) => pl.id === item.id).length === 0) {
+            return <></>;
+          }
+          return (
+            <Button
+              key={index}
+              variant={
+                item.id === activeService
+                  ? BUTTON_VARIANTS.PRIMARY_ACTIVE
+                  : BUTTON_VARIANTS.PRIMARY
+              }
+              onClick={() => {
+                handleTab(item.id);
+              }}
+            >
+              {item.name}
+              <StyledImage
+                src={item.id === activeService ? item.imgActive : item.img}
+                alt=""
+              />
+            </Button>
+          );
+        })}
     </StyledPlaylistTabs>
   );
 }

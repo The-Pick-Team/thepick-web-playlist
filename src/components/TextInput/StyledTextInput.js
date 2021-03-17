@@ -146,4 +146,8 @@ export const StyledSubmitButton = styled.input`
   border-radius: 6px;
   margin-left: 10px;
   cursor: pointer;
+  outline: none;
+  &:hover {
+    background: rgba(255, 255, 255, 0.9);
+  }
 `;
