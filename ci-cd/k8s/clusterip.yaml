@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: the-pick-api-ui
+  labels:
+    app: the-pick-api-ui
+spec:
+  selector:
+    app: the-pick-api-ui
+  type: NodePort
+  ports:
+    - name: the-pick-api-ui
+      protocol: TCP
+      port: 80
+      targetPort: 80
+

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: the-pick-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: the-pick-ui
+  template:
+    metadata:
+      labels:
+        app: the-pick-ui
+    spec:     # pod spec
+      containers:
+        - name: the-pick-ui
+          image: gcr.io/PROJECT_ID/IMAGE:TAG # image we pushed
+          ports:
+            - containerPort: 80
