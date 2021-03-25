@@ -8,10 +8,13 @@ metadata:
     kubernetes.io/ingress.class: "gce"
 spec:
   rules:
-    - host: thepick.space
-      http:
+    - http:
         paths:
           - path: /*
             backend:
               serviceName: the-pick-ui
+              servicePort: 80
+          - path: /api/*
+            backend:
+              serviceName: the-pick-api
               servicePort: 80
