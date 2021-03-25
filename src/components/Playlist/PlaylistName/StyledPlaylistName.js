@@ -1,12 +1,13 @@
 import { StyledButton } from 'components/Button/StyledButton';
 import styled from 'styled-components';
 
-export const StyledPlaylist = styled.div`
+export const StyledWrapper = styled.div`
   display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
   flex-direction: column;
   width: calc(100% - 40px);
   max-width: 660px;
-  padding: 0 20px;
 `;
 
 export const StyledPlaylistName = styled.p`
@@ -16,9 +17,20 @@ export const StyledPlaylistName = styled.p`
   letter-spacing: -0.165px;
 `;
 
+export const StyledCopyImage = styled.img`
+  width: 22px;
+  height: 28px;
+  margin: 0 20px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
 export const StyledPlaylistNameContainer = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
 `;
 
 export const StyledPlaylistDescription = styled.p`
@@ -47,6 +59,8 @@ export const StyledCheck = styled.span`
 `;
 export const StyledCopyContainer = styled.span`
   align-items: center;
+  flex-direction: row;
+  display: flex;
 `;
 
 export const StyledHomeHeader = styled.div`

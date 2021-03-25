@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   INPUT_VARIANTS,
@@ -9,12 +9,43 @@ import {
   StyledTextInputWrapper,
 } from './StyledTextInput';
 
-export function TextInput({ variant, label, onChange, onSubmit }) {
-  const [value, setValue] = useState(null);
+export function TextInput({
+  variant,
+  label,
+  onChange,
+  onSubmit,
+  showSubmitButton,
+  defaultValue,
+  placeholder,
+  refreshOnSubmit,
+  disabledSubmit,
+}) {
+  const [value, setValue] = useState();
+  const [defaultValueChanged, setDefaultValueChanged] = useState(false);
+
+  useEffect(() => {
+    if (!defaultValueChanged && defaultValue.length > 0) {
+      setValue(defaultValue);
+    }
+  }, [defaultValueChanged, defaultValue, setValue]);
+
   const handleChange = (e) => {
-    console.log('newValue', e.target.value);
     setValue(e.target.value);
-    onChange(e.target.value);
+    if (!defaultValueChanged) {
+      setDefaultValueChanged(true);
+    }
+    if (onChange) {
+      onChange(e.target.value);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (!disabledSubmit) {
+      if (refreshOnSubmit) {
+        setValue('');
+      }
+      onSubmit();
+    }
   };
 
   return (
@@ -22,16 +53,17 @@ export function TextInput({ variant, label, onChange, onSubmit }) {
       {label && <StyledLabel>{label}</StyledLabel>}
       <StyledTextInput
         variant={variant}
-        type="text"
-        placeholder="https://music.youtube.com/watch?v=1lyu1KKwC74&feature=share"
+        type="textarea"
+        placeholder={placeholder}
         value={value}
         onChange={handleChange}
       />
-      {onSubmit && (
+      {showSubmitButton && (
         <StyledSubmitButton
           type="submit"
-          onSubmit={onSubmit}
+          onClick={handleSubmit}
           value="Generate"
+          disabledSubmit
         />
       )}
     </StyledTextInputWrapper>
@@ -43,11 +75,21 @@ TextInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func,
   label: PropTypes.string,
+  showSubmitButton: PropTypes.bool,
+  defaultValue: PropTypes.string,
+  placeholder: PropTypes.string,
+  refreshOnSubmit: PropTypes.bool,
+  disabledSubmit: PropTypes.bool,
 };
 
 TextInput.defaultProps = {
   onSubmit: false,
   label: false,
+  showSubmitButton: false,
+  defaultValue: '',
+  placeholder: '',
+  refreshOnSubmit: false,
+  disabledSubmit: false,
 };
 
 export { INPUT_VARIANTS };

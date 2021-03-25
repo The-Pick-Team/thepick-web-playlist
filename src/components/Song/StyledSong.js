@@ -16,6 +16,7 @@ export const StyledSong = styled.div`
 export const StyledSongMeta = styled.div`
   display: flex;
   flex-direction: column;
+  opacity: ${({ semiTransparent }) => (semiTransparent ? '0.5' : '1')};
   margin-left: ${({ theme }) => theme.spacing(5)};
 `;
 

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 
 import { BUTTON_VARIANTS, Button } from 'components/Button/Button';
 
@@ -28,6 +29,12 @@ export const SERVICES = [
     imgActive: youtubeActive,
   },
   {
+    name: 'Youtube Music',
+    id: 'youtubeMusic',
+    img: youtube,
+    imgActive: youtubeActive,
+  },
+  {
     name: 'Spotify',
     id: 'spotify',
     img: spotify,
@@ -47,32 +54,76 @@ export const SERVICES = [
   },
 ];
 
-export function PlaylistTabs({ onTabChange, activeService }) {
-  const active = useState(0);
+export function PlaylistTabs({ songs, onTabChange, activeService }) {
+  const [songPlatforms, setSongPlatforms] = useState([]);
+  const [active, setActive] = useState();
+
+  const handleTab = (tab) => {
+    setActive(tab);
+    if (onTabChange) {
+      onTabChange(tab);
+    }
+  };
+
+  useEffect(() => {
+    if (songs) {
+      const listOfPlatforms = [];
+
+      songs.forEach((song) => {
+        if (song.linksByPlatform) {
+          const { linksByPlatform } = song;
+          SERVICES.forEach((platform, index) => {
+            const found = listOfPlatforms.filter(
+              (item) => item.id === platform.id,
+            );
+            if (linksByPlatform[platform.id] && found.length === 0) {
+              listOfPlatforms.push(SERVICES[index]);
+            }
+          });
+        }
+      });
+      setSongPlatforms(listOfPlatforms);
+      console.log('listOfPlatforms', listOfPlatforms);
+      handleTab(listOfPlatforms[0].id);
+    }
+  }, [songs, setSongPlatforms]);
+
   return (
     <StyledPlaylistTabs>
       <StyledPlaylistTabsTitle>
         Select your streaming service
       </StyledPlaylistTabsTitle>
-      {SERVICES.map((item, index) => (
-        <Button
-          key={index}
-          variant={
-            item.id === activeService
-              ? BUTTON_VARIANTS.PRIMARY_ACTIVE
-              : BUTTON_VARIANTS.PRIMARY
+      {active &&
+        SERVICES.map((item, index) => {
+          if (songPlatforms.filter((pl) => pl.id === item.id).length === 0) {
+            return <></>;
           }
-          onClick={() => {
-            onTabChange(item);
-          }}
-        >
-          {item.name}
-          <StyledImage
-            src={item.id === activeService ? item.imgActive : item.img}
-            alt=""
-          />
-        </Button>
-      ))}
+          return (
+            <Button
+              key={index}
+              variant={
+                item.id === activeService
+                  ? BUTTON_VARIANTS.PRIMARY_ACTIVE
+                  : BUTTON_VARIANTS.PRIMARY
+              }
+              onClick={() => {
+                handleTab(item.id);
+              }}
+            >
+              {item.name}
+              <StyledImage
+                src={item.id === activeService ? item.imgActive : item.img}
+                alt=""
+              />
+            </Button>
+          );
+        })}
     </StyledPlaylistTabs>
   );
 }
+
+PlaylistTabs.propTypes = {
+  songs: PropTypes.arrayOf([PropTypes.shape({})]).isRequired,
+  onTabChange: PropTypes.func.isRequired,
+  activeService: PropTypes.string.isRequired,
+};

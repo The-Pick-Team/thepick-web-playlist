@@ -1,14 +1,16 @@
+const endpoint = 'https://api.thepick.space/';
+
 export class HomeApi {
   static getPlaylist({ playlistId }) {
     // console.log('playlistId', playlistId);
-    return fetch(
-      `https://thepick.saport.io/api/playlists/${playlistId}`,
-    ).then((response) => response.json());
+    return fetch(`${endpoint}playlists/${playlistId}`).then((response) =>
+      response.json(),
+    );
   }
 
-  static getPlaylistSongs({ id, offset, limit }) {
-    return fetch(
-      `https://thepick.saport.io/api/playlists/${id}/psongs?offset=${offset}&limit=${limit}`,
-    ).then((response) => response.json());
-  }
+  // static getPlaylistSongs({ id, offset, limit }) {
+  //   return fetch(
+  //     `https://thepick.saport.io/api/playlists/${id}/psongs?offset=${offset}&limit=${limit}`,
+  //   ).then((response) => response.json());
+  // }
 }
