@@ -75,8 +75,14 @@ jobs:
         curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
         chmod u+x ./kustomize
 
+    - name: build ui
+      run: |-
+        npm ci
+        npm run build
+        ls -la
+
     #Build the Docker image
-    - name: Build
+    - name: Build Nginx
       run: |-
         docker build \
           --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
