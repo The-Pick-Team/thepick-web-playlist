@@ -28,8 +28,8 @@ env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: the-pick-k8s-cluster    # TODO: update to cluster name
   GKE_ZONE: us-central1   # TODO: update to cluster zone
-  DEPLOYMENT_NAME: the-pick-api-ui # TODO: update to deployment name
-  IMAGE: the-pick-api-ui
+  DEPLOYMENT_NAME: the-pick-ui # TODO: update to deployment name
+  IMAGE: the-pick-ui
 
 jobs:
   setup-build-publish-deploy:
