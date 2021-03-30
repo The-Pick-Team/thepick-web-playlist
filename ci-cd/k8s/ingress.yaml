@@ -10,10 +10,12 @@ spec:
   rules:
     - http:
         paths:
-          - path: /
+          - path: /*
             backend:
               serviceName: the-pick-ui
               servicePort: 80
+    - http:
+        paths:
           - path: /api
             backend:
               serviceName: the-pick-api
