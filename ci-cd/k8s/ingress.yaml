@@ -7,18 +7,15 @@ metadata:
     networking.gke.io/managed-certificates: thepickspace
     kubernetes.io/ingress.class: "gce"
 spec:
-  ingressClassName: "external-lb"
   rules:
     - host: thepick.space
       http:
         paths:
-          - path: /*
-            pathType: Prefix
-            backend:
-              serviceName: the-pick-ui
-              servicePort: 80
-          - path: /api
-            pathType: Prefix
+          - path: /api/.*
             backend:
               serviceName: the-pick-api
               servicePort: 81
+          - path: /.*
+            backend:
+              serviceName: the-pick-ui
+              servicePort: 80
