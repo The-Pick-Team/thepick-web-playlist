@@ -14,11 +14,15 @@ spec:
           - path: /
             pathType: Prefix
             backend:
-              serviceName: the-pick-ui
-              servicePort: 80
+              service:
+                name: the-pick-ui
+                port:
+                  number: 80
 
           - path: /api
             pathType: Prefix
             backend:
-              serviceName: the-pick-api
-              servicePort: 81
+              service:
+                name: the-pick-api
+                port:
+                  number: 81
