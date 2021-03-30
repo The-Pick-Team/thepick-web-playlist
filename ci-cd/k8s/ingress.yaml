@@ -6,6 +6,7 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: thepickspace
     networking.gke.io/managed-certificates: thepickspace
     kubernetes.io/ingress.class: "gce"
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
     - host: thepick.space
