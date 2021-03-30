@@ -8,8 +8,7 @@ metadata:
     kubernetes.io/ingress.class: "gce"
 spec:
   rules:
-    - host: thepick.space
-      http:
+    - http:
         paths:
           - path: /api/.*
             backend:
