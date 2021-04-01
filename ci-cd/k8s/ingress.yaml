@@ -11,7 +11,6 @@ spec:
       http:
         paths:
           - path: "/"
-            pathType: Prefix
             backend:
               serviceName: the-pick-ui
               servicePort: 80
