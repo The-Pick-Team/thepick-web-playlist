@@ -4,6 +4,8 @@ metadata:
   name: the-pick-ui
   labels:
     app: the-pick-ui
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
 spec:
   selector:
     app: the-pick-ui

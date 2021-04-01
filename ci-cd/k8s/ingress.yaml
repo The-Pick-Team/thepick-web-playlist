@@ -5,6 +5,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.global-static-ip-name: apithepickspace
     networking.gke.io/managed-certificates: thepickspace
+    kubernetes.io/ingress.allow-http: "false"
 spec:
   rules:
     - host: thepick.space
