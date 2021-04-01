@@ -7,7 +7,7 @@ metadata:
 spec:
   selector:
     app: the-pick-ui
-  type: ClusterIP
+  type: NodePort
   ports:
     - name: the-pick-ui
       protocol: TCP
