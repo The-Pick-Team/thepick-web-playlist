@@ -26,7 +26,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: the-pick    # TODO: update to cluster name
+  GKE_CLUSTER: thepick    # TODO: update to cluster name
   GKE_ZONE: us-central1   # TODO: update to cluster zone
   DEPLOYMENT_NAME: the-pick-ui # TODO: update to deployment name
   IMAGE: the-pick-ui
