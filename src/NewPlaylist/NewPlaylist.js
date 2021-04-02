@@ -56,7 +56,7 @@ export function NewPlaylist() {
 
   function getUrl() {
     return playlist['_id']
-      ? `${window.location.origin}/${playlist['_id']}`
+      ? `${window.location.origin}/#${playlist['_id']}`
       : false;
   }
   // http://localhost:8080/playlist/60515ff1692e4b0d493b2502
