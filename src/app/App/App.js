@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import { AppThemeProvider } from 'app/theme/ThemeProvider';
 import { GlobalStyle } from 'app/GlobalStyle';
@@ -14,17 +14,17 @@ import { StyledApp } from './StyledApp';
 
 export const App = () => {
   return (
-    <HashRouter basename="/">
+    <Router basename="/">
       <AppThemeProvider>
         <GlobalStyle />
         <StyledApp>
           <AppHeader />
           <Switch>
             <Route path="/newplaylist" component={NewPlaylist} />
-            <Route path="/playlist/:id" component={Home} />
+            <Route path="/:id" component={Home} />
           </Switch>
         </StyledApp>
       </AppThemeProvider>
-    </HashRouter>
+    </Router>
   );
 };

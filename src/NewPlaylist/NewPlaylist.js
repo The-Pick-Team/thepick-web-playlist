@@ -56,9 +56,12 @@ export function NewPlaylist() {
 
   function getUrl() {
     return playlist['_id']
-      ? `${window.location.origin}/thepick-web-playlist/playlist/${playlist['_id']}`
+      ? `${window.location.origin}/${playlist['_id']}`
       : false;
   }
+  // http://localhost:8080/playlist/60515ff1692e4b0d493b2502
+  // http://localhost:8080/playlist/60515ff1692e4b0d493b2502
+
   // https://the-pick-team.github.io/?playlistId=60515fa4692e4b91293b2501
 
   return (
