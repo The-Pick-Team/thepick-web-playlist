@@ -4,6 +4,15 @@ metadata:
   name: the-pick-ui
 spec:
   replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  lifecycle:
+    preStop:
+      exec:
+        # if SIGTERM triggers a quick exit; keep serving traffic instead
+        command: [ "sleep","60" ]
   selector:
     matchLabels:
       app: the-pick-ui
@@ -17,12 +26,4 @@ spec:
           image: gcr.io/PROJECT_ID/IMAGE:TAG # image we pushed
           ports:
             - containerPort: 80
-      strategy:
-        rollingUpdate:
-          maxSurge: 1
-          maxUnavailable: 0
-      lifecycle:
-        preStop:
-          exec:
-            # if SIGTERM triggers a quick exit; keep serving traffic instead
-            command: [ "sleep","60" ]
+
