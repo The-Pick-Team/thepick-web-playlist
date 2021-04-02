@@ -11,12 +11,11 @@ spec:
     - host: thepick.space
       http:
         paths:
-          - path: "/"
+          - path: "/*"
             backend:
               serviceName: the-pick-ui
               servicePort: 80
-          - path: "/api"
-            pathType: Prefix
+          - path: "/api/*"
             backend:
               serviceName: the-pick-api
               servicePort: 80
