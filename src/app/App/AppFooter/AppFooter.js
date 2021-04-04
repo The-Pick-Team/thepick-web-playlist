@@ -6,7 +6,7 @@ export function AppFooter() {
   return (
     <StyledFooter>
       <StyledLink href="https://t.me/thepickbot" target="_blank">
-        Telegram Bot
+        thepickbot
       </StyledLink>
     </StyledFooter>
   );
