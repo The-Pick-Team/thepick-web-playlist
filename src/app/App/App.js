@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import { AppThemeProvider } from 'app/theme/ThemeProvider';
 import { GlobalStyle } from 'app/GlobalStyle';
@@ -17,7 +17,7 @@ import { StyledApp } from './StyledApp';
 
 export const App = () => {
   return (
-    <HashRouter basename="/">
+    <Router basename="/">
       <AppThemeProvider>
         <GlobalStyle />
         <StyledApp>
@@ -29,6 +29,6 @@ export const App = () => {
           <AppFooter />
         </StyledApp>
       </AppThemeProvider>
-    </HashRouter>
+    </Router>
   );
 };
