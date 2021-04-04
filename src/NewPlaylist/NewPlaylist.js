@@ -182,11 +182,9 @@ export function NewPlaylist() {
       }
       setInputValue('');
       setSongIsLoading(false);
-      console.log(newPlaylist);
     } catch (err) {
       setError(err);
       setSongIsLoading(false);
-      console.log('error', err);
     }
 
     // setSongs, setPlaylist
@@ -201,7 +199,7 @@ export function NewPlaylist() {
       const newPlaylist = { ...playlist };
       newPlaylist.name = newValue;
       setPlaylist({ ...newPlaylist });
-      const update = await NewPlaylistApi.updatePlaylsit({
+      await NewPlaylistApi.updatePlaylsit({
         playlist: newPlaylist,
       });
     }

@@ -113,6 +113,13 @@ const wrapperMargin = () =>
     [INPUT_VARIANTS.TITLE]: '0 0',
   });
 
+const submitColor = ({ theme }) =>
+  styledMap(VARIANT_PROP_NAME, {
+    [INPUT_VARIANTS.PRIMARY]: theme.palette.common.black,
+    [INPUT_VARIANTS.SECONDARY]: theme.palette.common.black,
+    [INPUT_VARIANTS.TITLE]: theme.palette.common.black,
+  });
+
 export const StyledTextInputWrapper = styled.div`
   display: flex;
   align-items: flex-start;
@@ -133,7 +140,7 @@ export const StyledLabel = styled.label`
   margin: 12px 0;
 `;
 
-export const StyledSubmitButton = styled.input`
+export const StyledSubmitButton = styled.div`
   display: flex;
   font-weight: 400;
   font-size: 18px;
@@ -147,7 +154,6 @@ export const StyledSubmitButton = styled.input`
   margin-left: 10px;
   cursor: pointer;
   outline: none;
-  &:hover {
-    background: rgba(255, 255, 255, 0.9);
-  }
+  background: rgba(255, 255, 255, 0.9);
+  color: black;
 `;

@@ -10,7 +10,7 @@ import { StyledHome } from './StyledHome';
 
 export function Home() {
   const { id } = useParams();
-
+  console.log('id 2 ', id);
   // const urlParams = new URLSearchParams(window.location.search);
   const playlistId = id;
 

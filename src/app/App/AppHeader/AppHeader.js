@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { StyledAppHeader, StyledLink } from './StyledAppHeader';
+import { StyledAppHeader, StyledLink, StyledLogo } from './StyledAppHeader';
 
 export function AppHeader() {
   return (
     <StyledAppHeader>
-      <StyledLink to={false}>thepick</StyledLink>
-      <StyledLink to="/newplaylist">Create Playlist</StyledLink>
+      <StyledLogo>thepick</StyledLogo>
+      <StyledLink to="/">Create Playlist</StyledLink>
     </StyledAppHeader>
   );
 }

@@ -59,12 +59,9 @@ export function TextInput({
         onChange={handleChange}
       />
       {showSubmitButton && (
-        <StyledSubmitButton
-          type="submit"
-          onClick={handleSubmit}
-          value="Generate"
-          disabledSubmit
-        />
+        <StyledSubmitButton type="submit" onClick={handleSubmit} disabledSubmit>
+          Generate
+        </StyledSubmitButton>
       )}
     </StyledTextInputWrapper>
   );

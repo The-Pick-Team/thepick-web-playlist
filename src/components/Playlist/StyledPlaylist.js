@@ -6,7 +6,7 @@ export const StyledPlaylist = styled.div`
   flex-direction: column;
   width: calc(100% - 40px);
   max-width: 660px;
-  padding: 0 20px;
+  padding: 0 20px 20px;
 `;
 
 export const StyledPlaylistName = styled.p`

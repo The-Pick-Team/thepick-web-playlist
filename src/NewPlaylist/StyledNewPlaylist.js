@@ -2,17 +2,23 @@ import styled from 'styled-components';
 
 export const StyledNewPlaylist = styled.div`
   display: flex;
+  flex: 1;
+  justify-content: flex-start;
   flex-direction: column;
   align-items: center;
-  oberflow-y: auto !important;
   flex-wrap: wrap;
-  justify-content: center;
+  oberflow-y: auto !important;
   margin-top: 32px;
+  width: 100vw;
+
+  @media (min-width: 660px) {
+    width: 660px;
+  }
 `;
 
 export const StyledSongListContainer = styled.div`
   display: flex;
-  max-width: 660px;
   padding: 0 20px;
-  width: 100%;
+  flex: 1;
+  align-self: stretch;
 `;

@@ -31,6 +31,16 @@ StyledLink.defaultProps = {
   children: '',
 };
 
+export const StyledLogo = styled.span`
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 20px 10px;
+  text-decoration: none;
+  cursor: default;
+  user-select: none;
+`;
+
 export const StyledAppHeader = styled.div`
   padding: ${({ theme }) => theme.spacing(2)} ${({ theme }) => theme.spacing(4)};
   padding: 0 20px;
