@@ -1,4 +1,4 @@
-const endpoint = 'https://thepick.space/api/';
+const endpoint = 'https://api.thepick.space/api/';
 
 export class NewPlaylistApi {
   static getSong({ url }) {
