@@ -59,10 +59,6 @@ export function NewPlaylist() {
       ? `${window.location.origin}/${playlist['_id']}`
       : false;
   }
-  // http://localhost:8080/playlist/60515ff1692e4b0d493b2502
-  // http://localhost:8080/playlist/60515ff1692e4b0d493b2502
-
-  // https://the-pick-team.github.io/?playlistId=60515fa4692e4b91293b2501
 
   return (
     <StyledNewPlaylist>
@@ -99,7 +95,108 @@ export function NewPlaylist() {
     </StyledNewPlaylist>
   );
 
+  function handleSongStructure(newSong) {
+    /* Updating playlist with new song */
+    const linksByPlatformNew = {};
+    const { linksByPlatform, entitiesByUniqueId } = newSong;
+    // console.log('heya', Object.keys(newSong.linksByPlatform));
+
+    Object.keys(newSong.linksByPlatform).forEach((key) => {
+      const info = {
+        title: '',
+        artistName: '',
+      };
+      let entitiesKey = key;
+      switch (key) {
+        case 'youtubeMusic':
+          entitiesKey = 'youtube';
+          break;
+        case 'appleMusic':
+          entitiesKey = 'itunes';
+          break;
+        case 'amazonMusic':
+        case 'amazonStore':
+          entitiesKey = 'amazon';
+          break;
+        default:
+          entitiesKey = key;
+      }
+      info.title = entitiesByUniqueId[entitiesKey].title;
+      info.artistName = entitiesByUniqueId[entitiesKey].artistName;
+
+      const platform = {
+        ...info,
+        ...linksByPlatform[key],
+      };
+      linksByPlatformNew[key] = { ...platform };
+    });
+
+    const structuredSong = {
+      _id: newSong['_id'],
+      linksByPlatform: { ...linksByPlatformNew },
+    };
+
+    return structuredSong;
+  }
+
   async function handleSubmit() {
+    if (inputValue.includes('playlist')) {
+      try {
+        setSongIsLoading(true);
+        /* Fetching playlist */
+        const newPlaylistSongs = await NewPlaylistApi.getPlaylist({
+          url: inputValue,
+        });
+        if (newPlaylistSongs.statusCode) {
+          setError(newPlaylist);
+          return;
+        }
+        newPlaylistSongs.forEach((item) => {});
+
+        let newPlaylist;
+
+        if (!playlist['_id']) {
+          newPlaylist = await NewPlaylistApi.newPlaylsit();
+          if (newPlaylist.statusCode) {
+            setError(newPlaylist);
+            return;
+          }
+          // console.log('newPlaylist', newPlaylist);
+        } else {
+          newPlaylist = { ...playlist };
+        }
+
+        newPlaylistSongs.forEach((item) => {
+          const structuredSong = handleSongStructure(item);
+          // console.log('structuredSong', structuredSong);
+
+          newPlaylist.songs.push(structuredSong);
+        });
+
+        /* updating playlist main info */
+        newPlaylist.name = name;
+        newPlaylist.total = newPlaylist.songs.length;
+
+        // console.log('new playlist after: ', newPlaylist);
+        /* PUT playlist in database  */
+        const update = await NewPlaylistApi.updatePlaylsit({
+          playlist: newPlaylist,
+        });
+        // console.log('update: ', update);
+
+        if (!update.statusCode) {
+          setPlaylist({ ...newPlaylist });
+        }
+        setInputValue('');
+        setSongIsLoading(false);
+
+        return;
+      } catch (err) {
+        setError(err);
+        setSongIsLoading(false);
+      }
+    }
+
     try {
       setSongIsLoading(true);
       /* Fetching song */
@@ -123,45 +220,7 @@ export function NewPlaylist() {
         newPlaylist = { ...playlist };
       }
 
-      /* Updating playlist with new song */
-      const linksByPlatformNew = {};
-      const { linksByPlatform, entitiesByUniqueId } = newSong;
-      // console.log('heya', Object.keys(newSong.linksByPlatform));
-
-      Object.keys(newSong.linksByPlatform).forEach((key) => {
-        const info = {
-          title: '',
-          artistName: '',
-        };
-        let entitiesKey = key;
-        switch (key) {
-          case 'youtubeMusic':
-            entitiesKey = 'youtube';
-            break;
-          case 'appleMusic':
-            entitiesKey = 'itunes';
-            break;
-          case 'amazonMusic':
-          case 'amazonStore':
-            entitiesKey = 'amazon';
-            break;
-          default:
-            entitiesKey = key;
-        }
-        info.title = entitiesByUniqueId[entitiesKey].title;
-        info.artistName = entitiesByUniqueId[entitiesKey].artistName;
-
-        const platform = {
-          ...info,
-          ...linksByPlatform[key],
-        };
-        linksByPlatformNew[key] = { ...platform };
-      });
-
-      const structuredSong = {
-        _id: newSong['_id'],
-        linksByPlatform: { ...linksByPlatformNew },
-      };
+      const structuredSong = handleSongStructure(newSong);
       // console.log('structuredSong', structuredSong);
 
       newPlaylist.songs.push(structuredSong);
