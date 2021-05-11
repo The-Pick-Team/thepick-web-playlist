@@ -140,7 +140,7 @@ export function NewPlaylist() {
   }
 
   async function handleSubmit() {
-    if (inputValue.includes('playlist')) {
+    if (inputValue.includes('playlist') || inputValue.includes('album')) {
       try {
         setSongIsLoading(true);
         /* Fetching playlist */
