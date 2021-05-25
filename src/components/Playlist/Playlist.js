@@ -64,7 +64,7 @@ export function Playlist({
         <StyledPlaylistLoading>Loading playlist...</StyledPlaylistLoading>
       ) : (
         <React.Fragment>
-          {name && (
+          {songs.length && (
             <div>
               <PlaylistName name={name} playlistUrl={window.location.href} />
               <StyledPlaylistDescription>
