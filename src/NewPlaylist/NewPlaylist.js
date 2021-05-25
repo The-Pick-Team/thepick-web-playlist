@@ -71,7 +71,7 @@ export function NewPlaylist() {
         totalSongs={playlist.total || '0'}
       />
       <LinkInput
-        label="Paste song link"
+        label="Paste song, album or playlist link"
         placeholder="https://music.youtube.com/watch?v=1lyu1KKwC74"
         variant={INPUT_VARIANTS.PRIMARY}
         onChange={handleInputChange}
