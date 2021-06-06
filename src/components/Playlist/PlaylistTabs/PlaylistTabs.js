@@ -42,7 +42,7 @@ export const SERVICES = [
   },
   {
     name: 'Apple Music',
-    id: 'appleMusic',
+    id: 'itunes',
     img: appleMusic,
     imgActive: appleMusicActive,
   },
@@ -68,7 +68,6 @@ export function PlaylistTabs({ songs, onTabChange, activeService }) {
   useEffect(() => {
     if (songs) {
       const listOfPlatforms = [];
-
       songs.forEach((song) => {
         if (song.linksByPlatform) {
           const { linksByPlatform } = song;
