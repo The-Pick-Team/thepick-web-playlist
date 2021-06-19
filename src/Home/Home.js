@@ -16,7 +16,8 @@ export function Home() {
 
   const [playlist, setPlaylist] = useState({});
   const [isPlaylistLoading, setIsPlaylistLoading] = useState(true);
-
+  const isEmbedShown =
+    playlist?.songs?.[0]?.linksByPlatform?.youtube?.title === 'These Eyes';
   useEffect(() => {
     getPlaylist();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -30,6 +31,18 @@ export function Home() {
         songs={playlist.songs}
         isLoading={isPlaylistLoading}
       />
+      {isEmbedShown && (
+        <iframe
+          style={{ position: 'absolute', bottom: 20, right: 20 }}
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/w4fbNPhw6YU"
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      )}
     </StyledHome>
   );
 
